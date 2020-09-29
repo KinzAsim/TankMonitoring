@@ -44,7 +44,7 @@ export const updateSensors = (data)=> (dispatch,getState) => {
         })
       }
        else {
-           console.log('Error');
+         //  console.log('Error');
        }
      
 }

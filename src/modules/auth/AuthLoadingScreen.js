@@ -20,7 +20,7 @@ class AuthLoadingScreen extends React.Component{
 
            if(isAuthenticated){
             //    console.log('authenticated')
-               this.props.navigation.navigate('home');
+               this.props.navigation.navigate('App');
            }
        }
     }
@@ -30,7 +30,7 @@ class AuthLoadingScreen extends React.Component{
         console.log('token',userToken);
                   if(userToken){
                      await this.props.loadUser(userToken);
-                     this.props.navigation.navigate('home');
+                     this.props.navigation.navigate('App');
                   }
                   else{
                       this.props.navigation.navigate('auth');

@@ -13,7 +13,7 @@ class NotificationIcon extends React.Component{
 
 render(){ 
    const {navigationProps, notification} = this.props;
-  // console.log('PropsView', notification)
+   //console.log('PropsView', notification)
 
     return(
         <View style={{flexDirection:'row', marginRight:wp('10%')}}>

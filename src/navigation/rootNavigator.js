@@ -24,17 +24,15 @@ const Auth_Stack = createStackNavigator({
      
 );
 const App_Stack = createStackNavigator({
+    pusher : {
+        screen: NotificationPusher
+    },
     home: {
         screen: TankTabNavigator        
     },
-    
     notification: {
         screen: NotificationView
     },
-    pusher : {
-        screen: NotificationPusher
-    }
-    
     },
     {
         defaultNavigationOptions: ({navigation}) =>({
@@ -67,7 +65,7 @@ export default createAppContainer(
         {
         AuthLoading:AuthLoadingScreen,    
         auth:Auth_Stack,
-        home:App_Stack,
+        App:App_Stack,
         },
         {
             initialRouteName:'AuthLoading',

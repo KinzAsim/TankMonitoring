@@ -84,7 +84,7 @@ class LogsScreen extends React.Component {
 
     handleModuleChange = (item) => {
         const {tank}= this.props;
-        console.log(['handle',tank])
+      
         const {selectedTypeValue,startDate,endDate} = this.state;
         const i = tank.findIndex(s => s.name === item.value);
     this.setState({
@@ -113,19 +113,19 @@ class LogsScreen extends React.Component {
 
   startDateChange = (date) => {
        const {tank} = this.props;
-       console.log('start',tank)
+      
        const {selectedModuleValue,selectedTypeValue,endDate} = this.state;    
        const i = tank.findIndex(s => s.name === selectedModuleValue);
         this.setState({
         startDate: date
         })
-      console.log('StartLogs',selectedTypeValue,tank[i]._id,date,endDate)
-      //this.props.getLogs(selectedTypeValue,tank[i]._id,date,endDate);
+  
+      this.props.getLogs(selectedTypeValue,tank[i]._id,date,endDate);
 
   }
   endDateChange = (date) => {
      const {tank} = this.props;
-     console.log('end',tank)
+  
      const {selectedModuleValue,selectedTypeValue,startDate} = this.state;
      const i = tank.findIndex(s => s.name === selectedModuleValue);
     this.setState({
@@ -138,7 +138,7 @@ class LogsScreen extends React.Component {
   render() {
     const{tank,logs,logsLoading} = this.props;
     const {moduleArray,type,selectedTypeValue,selectedModuleValue, startDate,endDate} = this.state;  
-    console.log('Module',logs);
+    //console.log('Module',logs);
     //console.log(logs);
     
     return (

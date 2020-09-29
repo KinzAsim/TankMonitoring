@@ -25,7 +25,7 @@ const authReducer = (state = initState, action) => {
                 isLoading : true
             }
         case 'USER_LOADED' :
-            console.log('load reducer',action.payload)
+          
             return {
                 ...state,
                 isAuthenticated : true,

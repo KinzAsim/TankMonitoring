@@ -2,10 +2,12 @@ import React from 'react';
 import {View, Text, StyleSheet, Button} from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import Item from './notificationItem';
+import {connect} from 'react-redux';
+import { addNotification } from '../../redux/action/notificationAction';
 
 
 
-export default class NotificationView extends React.Component{
+class NotificationView extends React.Component{
 constructor(props){
     super(props);
     this.state={
@@ -29,8 +31,7 @@ constructor(props){
 }
  
             componentDidMount(){
-                const {user,addNotification,notification} = this.props;
-                console.log('Hello', addNotification);
+                const {notifications} = this.props;
             }
 
             clear = () => {
@@ -38,22 +39,30 @@ constructor(props){
               //  this.props.clear();   
             }  
 
-    render(){
-    const {notification,addNotification} = this.props;
-    console.log('notice',addNotification);
+            render(){
+            const {notifications} = this.props;
+            console.log('view noooooo', notifications)
+
    // const{DATA} = this.state;
 
         return(
 
             <View style={styles.container}>
-                <FlatList 
-                style={styles.flat}              
-                data={notification}
-                renderItem={({item}) => <Item id={item.id} type={item.type} message={item.title}/>
-                }
-                keyExtractor={(item, index)=> index.toString()}
-                >               
-                </FlatList>
+                 {notifications.length > 0 ? (
+                <FlatList                
+                    data={ notifications }                               
+                    renderItem={({item}) => 
+                    <Item 
+                    variant={item.variant} 
+                    type={item.type} 
+                    message={item.title}/>}
+                    keyExtractor={(item, index) => index.toString()}
+                /> 
+                ) : (
+                <View style={{flex:0.9, alignItems:'center', justifyContent:'center'}}>
+                    <Text style={{color: 'black', fontSize: 20,fontWeight: 'bold'}}>No Notifications!!</Text>
+                </View>
+                )}
            
            <View style={styles.btn}>
            <Button style={styles.btn}
@@ -66,10 +75,17 @@ constructor(props){
     }
 }
 
+        mapStateToProps = (state) => ({
+        //user: state.auth.user,
+        notifications: state.notifications.notifications,
+    });
+
+
+export default connect(mapStateToProps,null)(NotificationView);
+
 const styles = StyleSheet.create({
     container:{
-        justifyContent:'center',
-        backgroundColor:'#000'
+       backgroundColor:'#000'
     },
     btn: {  
         marginTop:800,  
@@ -78,7 +94,5 @@ const styles = StyleSheet.create({
         marginVertical: 16,
 
     },
-    flat: {
-        backgroundColor:'#fff'
-    }
+ 
 })

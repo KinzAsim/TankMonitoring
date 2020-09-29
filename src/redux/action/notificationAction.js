@@ -1,11 +1,11 @@
 
 
 export const addNotification = (data) => async(dispatch,getState) => {    
-        console.log('Notify',data);
-        // dispatch({
-        //     type:'Add_Notification',
-        //     payload:data
-        // });
+       // console.log('from action',data);
+        dispatch({
+            type:'Add_Notification',
+            payload:data
+        });
     }
 
 

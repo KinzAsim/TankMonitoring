@@ -38,7 +38,7 @@ import {getSensors} from '../../../redux/action/tankAction';
     
     async componentDidMount () {
         const {user} = this.props;
-        console.log('user data',user);
+    
         const done = await this.props.getSensors(user.id);
         if(done=='done'){
             console.log('done');
@@ -47,7 +47,7 @@ import {getSensors} from '../../../redux/action/tankAction';
         handleChange = (item) => {        
            const {tank} = this.props;
            const i = tank.findIndex(x => x.name === item.value);
-         //  console.log('sensor',i);
+         
             this.setState({
             selectedModule:item.label,
             selectedModuleValue:item.value,
@@ -57,7 +57,7 @@ import {getSensors} from '../../../redux/action/tankAction';
     render(){
         const {Modules,selectedModuleValue,Index} = this.state;
         const {user,state,tank,sensorLoading} = this.props; 
-        //console.log('state',tank);
+      
         console.log('sensorloading',sensorLoading);
 
         if(tank[Index] === undefined){
@@ -113,17 +113,17 @@ import {getSensors} from '../../../redux/action/tankAction';
                     onChangeItem={item => this.handleChange(item)}
                     ></DropDownPicker>
                     
-                   
+{/*                    
                     <View style={styles.drop}>
                        
-                       <Icon1 name="cup-water" size={90}color="#0F5E9C"width="100" height="100"/>
+                       <Icon1 name="cup-water" size={90}color="#0F5E9C"width="100" height="100"/> */}
                         {/* <AnimatedWave
                         sizeOvan={100}
                 // onPress={() => alert("Hello")}
                         colorOvan={'#bebebe'}
                         zoom={5}
                         /> */}
-                    </View>
+                    {/* </View> */}
 
                     {/* <Svg style={styles.containerWave}height="15" width="15">
                     <Circle
@@ -136,9 +136,11 @@ import {getSensors} from '../../../redux/action/tankAction';
                       
                     />
                     </Svg> */}
+{/* //#5CDB95, #05386B, #5D001E, #9A1750, E3AFBC*/}
+                   {/* // <View style={{flexDirection:'column-reverse'}}> */}
 
                     <Card
-                    containerStyle={[styles.cardMainContainer,{backgroundColor:'#000',borderColor:'#2389DA', marginTop:50,height:100
+                    containerStyle={[styles.cardMainContainer,{backgroundColor:'#0F5E9C', marginTop:50, width:400, height:100
                     }]}
                     > 
                     <Card.Title style={styles.cardTitle}>UPPER TANK FILLLEVEL</Card.Title>
@@ -152,7 +154,7 @@ import {getSensors} from '../../../redux/action/tankAction';
                     </Card>
         
                     <Card
-                    containerStyle={[styles.cardMainContainer,{backgroundColor:'#000',borderColor:'#2389DA', height:100}]}>
+                    containerStyle={[styles.cardMainContainer,{backgroundColor:'#0F5E9C',borderColor:'#05386B', marginTop:50, width:400, height:100}]}>
                         <Card.Title style={styles.cardTitle}>LOWER TANK FILLLEVEL</Card.Title>
                         <View style={{justifyContent:'center', flexDirection:'row-reverse'}}>
                     <View style={styles.IconView}>
@@ -162,13 +164,14 @@ import {getSensors} from '../../../redux/action/tankAction';
                         style={styles.text}>{tank[Index].fillLevel1}</Text>  
                         </View>                
                     </Card>
+            {/* </View> */}
         
                     <Card
-                    containerStyle={[styles.cardMainContainer1,{backgroundColor:'#000',borderColor:'#2389DA', width:250, height:80, marginTop:60}]}>
+                    containerStyle={[styles.cardMainContainer1,{backgroundColor:'#0F5E9C',borderColor:'#0F5E9C'}]}>
                         <Card.Title style={styles.cardTitle1}>MOTOR STATUS</Card.Title>
-                    <View style={{justifyContent:'center',flexDirection:'row-reverse'}}>
+                    <View style={{justifyContent:'center',flexDirection:'row-reverse', marginTop:20}}>
                         <View style={styles.IconView1}>
-                        <Icon4 name="poweroff" size={20} color="#0F5E9C"/>
+                        <Icon4 name="poweroff" size={30} color="#0F5E9C"/>
                         </View>
                     <TouchableOpacity>
                     {tank[Index].motor === 1 ?
@@ -213,37 +216,34 @@ import {getSensors} from '../../../redux/action/tankAction';
 
 export default connect(mapStateToProps,{getSensors})(HomeScreen);
 
-
+//#05386B,#EDF5E1,D9B08C
 const styles = StyleSheet.create({
     container: {
        flex:1,
        backgroundColor:'#000',     
     },
-    cardMainContainer: {
-        borderColor:'#2389DA',
-        borderRadius:30,             
-        paddingHorizontal:15,
-        borderWidth: 1,
+    cardMainContainer:   {               
+        borderColor:'#000',
         elevation:10,
         shadowRadius:10,
+        justifyContent:'center',
+        width: 500,
+        height: 200,
+        marginLeft:50, 
+        borderRadius: 200/2,
         //marginBottom:15,
     },
     cardMainContainer1: {
-        borderRadius:100,
-        alignItems:'center',
-        paddingHorizontal:15,
-        backgroundColor:'#2389DA',
+        width:460,
+        marginTop:280,
+        height:200,
         borderWidth: 1,
-        elevation:5,
-        shadowRadius:10,
-        marginHorizontal:120,
-        width:150,
-        height:150,
-        marginBottom:10,
+        elevation:60,
+        shadowRadius:60, 
+         
     },
     cardTitle: {
-        alignSelf:'flex-start',
-        fontSize: 12,
+        fontSize: 20,
         marginBottom: hp('0.0%'),
         color:'#fff'
     },
@@ -255,36 +255,32 @@ const styles = StyleSheet.create({
     },
     IconView:{
         width:55,
-        height: 55,
+        height:55,
         borderRadius:65,
         backgroundColor:'#fff',
         alignItems:'center',
+        marginLeft:250,
         justifyContent:'center',
-        elevation:10,
-        marginLeft:hp('35%'),
-      
-             
+        elevation:10,                   
     },
     IconView1: {
-        width:35,
-        height: 30,
+        width:55,
+        height:55,
         borderRadius:15,
         backgroundColor:'#fff',
         alignItems:'center',
         justifyContent:'center',
-        marginLeft:100
-           
+        marginLeft:150           
     },
     text: {
         marginBottom:5,
-        fontSize:20,
+        fontSize:25,
         fontWeight:'bold',
         color:'#fff',
         
     },
-    text1: {
-        fontSize:30,
-        marginLeft:15,
+    text1: {       
+        fontSize:50,
         fontWeight:'bold',
         color:'#fff'
     },
@@ -296,12 +292,12 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor:'#2389DA'
     },
-    waveBall: {
-        width: 50,
-        aspectRatio: 1,
-        borderRadius: 10,
-        overflow: 'hidden',
-    },
+    // waveBall: {
+    //     width: 50,
+    //     aspectRatio: 1,
+    //     borderRadius: 10,
+    //     overflow: 'hidden',
+    // },
     drop: {
         marginTop:50,
         width:100,

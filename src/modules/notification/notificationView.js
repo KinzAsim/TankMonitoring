@@ -59,8 +59,8 @@ constructor(props){
                     keyExtractor={(item, index) => index.toString()}
                 /> 
                 ) : (
-                <View style={{flex:0.9, alignItems:'center', justifyContent:'center'}}>
-                    <Text style={{color: 'black', fontSize: 20,fontWeight: 'bold'}}>No Notifications!!</Text>
+                <View style={{flex:0.9, alignItems:'center', justifyContent:'center', marginTop:50}}>
+                    <Text style={{color: 'black', fontSize: 20,fontWeight: 'bold',}}>No Notifications!!</Text>
                 </View>
                 )}
            
@@ -85,10 +85,10 @@ export default connect(mapStateToProps,null)(NotificationView);
 
 const styles = StyleSheet.create({
     container:{
-       backgroundColor:'#000'
+       backgroundColor:'#fff'
     },
     btn: {  
-        marginTop:800,  
+        marginTop:730,  
         flexDirection: 'row',
         justifyContent: 'flex-end',
         marginVertical: 16,

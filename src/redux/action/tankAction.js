@@ -31,13 +31,21 @@ export const getSensors = (id) => (dispatch,getState) => new Promise(async funct
 export const updateSensors = (data)=> (dispatch,getState) => {
        
         if(data.fillLevel !== undefined){  
-       //     console.log('data',data)       
-            dispatch ({
-                type:'UPADATE_FILLLEVEL',
-                payload:data
-            })
+         console.log('Level',data)       
+            // dispatch ({
+            //     type:'UPDATE_FILLLEVEL',
+            //     payload:data
+            // })
        }
+       else if(data.fillLevel1 !== undefined){  
+        console.log('Lower',data)       
+           dispatch ({
+               type:'UPDATE_FILLLEVEL1',
+               payload:data
+           })
+      }
        else if(data.motor !== undefined) {
+       // console.log('data',data)  
         dispatch({
           type : 'UPDATE_MOTORSTATUS',
           payload : data

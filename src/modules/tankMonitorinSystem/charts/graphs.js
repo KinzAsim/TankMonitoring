@@ -1,6 +1,7 @@
 import React from 'react';
 import {View,StyleSheet} from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
+import { LineChart, Grid, YAxis, XAxis} from 'react-native-svg-charts'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 export default class graphScreen extends React.Component{
@@ -8,17 +9,27 @@ export default class graphScreen extends React.Component{
         super(props);
         this.state={
             ChartList: [
-                {label:'Tank Module 1', value:'Tank module 1'},
-                {label:'Tank Module 2', value:'Tank module 2'},
+                {label:'Module', value:'Tank Module 1'},
               ],
-              ChartType: [
-                  {label:'Fill Level Chart',value:'Fill Level Chart'}
+            ChartType: [
+                  {label:'fillLevel',value:'fillLevel'},
+                  {label:'Motor',value:'motor'},
+
+              ],
+            ChartRange: [
+                {label: 'Past Week', value: 'week'},
+                {label: 'Past Month', value: 'month'},
+                {label: 'Year Chart', value: 'year'},
               ],
               selectedModule:0,
-              selectedModuleValue: 'Tank module 1',
+              selectedModuleValue: 'Tank Module 1',
+              selectedType: -1,
+              selectedTypeValue: 'fillLevel',
+              selectedRange: 0,
+              selectedRangeValue: 'week',
+            //   selectedType: -1,
+            //   selectedTypeValue: 'Day',
               loading: true,
-              selectedTypeValue:'Fill level',
-              selectedType:-1,
               Index:0,
               
              }
@@ -26,17 +37,57 @@ export default class graphScreen extends React.Component{
      }
 
     render(){
-        const {ChartList,selectedModuleValue,ChartType}= this.state;
+        const {ChartList,selectedModuleValue,ChartType, ChartRange,selectedRangeValue, selectedTypeValue}= this.state;
+        console.log('chart', selectedTypeValue)
+        const data = [50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80]
+ 
+        // const colors = ['#8800cc', '#aa00ff', '#cc66ff', '#eeccff']
+        // const keys = ['apples', 'bananas', 'cherries', 'dates']
+        // const svgs = [
+        //     { onPress: () => console.log('apples') },
+        //     { onPress: () => console.log('bananas') },
+        //     { onPress: () => console.log('cherries') },
+        //     { onPress: () => console.log('dates') },
+        // ]
         return(
-            <View style={styles.container}bounces={false}>
-            <View style={styles.container}>
+            <View style={styles.container}bounces={true}>
+            <View style={{flexDirection:'row-reverse',marginHorizontal:50}}>
                 <DropDownPicker
             items={ChartList}
-            style={{borderColor:'red'}}
+            style={{elevation:50}}
             defaultValue={selectedModuleValue}
             containerStyle={{
                 height:40, 
-                width:wp('86.3%'), 
+                width:wp('26.3%'), 
+                paddingLeft:5,
+                marginTop:20,
+                borderColor:'#000',
+                borderRadius:5,
+                marginBottom:20}}
+            itemStyle={{
+                justifyContent:'flex-start',
+                borderRadius:5,
+                marginBottom:5,
+                width:wp('90%'),
+                paddingLeft:30
+            }}
+            dropDownStyle={{
+                backgroundColor:'#fff',
+                elevation:50}}
+            labelStyle={{
+                fontSize:15,
+                color:'#2389DA',
+                textAlign:'left'                   
+            }}
+           
+            ></DropDownPicker>
+               <DropDownPicker
+            items={ChartType}
+            style={{elevation:50}}
+            defaultValue={selectedTypeValue}
+            containerStyle={{
+                height:40, 
+                width:wp('26.3%'), 
                 paddingLeft:5,
                 marginTop:20,
                 borderColor:'#000',
@@ -54,16 +105,64 @@ export default class graphScreen extends React.Component{
                 elevation:50}}
             labelStyle={{
                 fontSize:14,
+                color:'#2389DA',
                 textAlign:'left'                   
             }}
            
             ></DropDownPicker>
-
-            <View style={styles.dropcontainer}>
+               <DropDownPicker
+            items={ChartRange}
+            style={{elevation:50}}
+            defaultValue={selectedRangeValue}
+            containerStyle={{
+                height:40, 
+                width:wp('26.3%'), 
+                paddingLeft:5,
+                marginTop:20,
+                borderColor:'#000',
+                borderRadius:5,
+                marginBottom:20}}
+            itemStyle={{
+                justifyContent:'flex-start',
+                borderRadius:5,
+                marginBottom:5,
+                width:wp('90%'),
+                paddingLeft:30
+            }}
+            dropDownStyle={{
+                backgroundColor:'#fff',
+                elevation:50}}
+            labelStyle={{
+                fontSize:14,
+                color:'#2389DA',
+                textAlign:'left'                   
+            }}
+           
+            ></DropDownPicker>
+             </View>
+            <View style={{ height: 200, padding: 20 }}>
+                <LineChart
+                    style={{ flex: 1 }}
+                    data={data}
+                    gridMin={0}
+                    contentInset={{ top: 10, bottom: 10 }}
+                    svg={{ stroke: 'rgb(24, 127, 242)' }}
+                >
+                    <Grid />
+                </LineChart>
+                <XAxis
+                    style={{ marginHorizontal: -10 }}
+                    data={data}
+                    formatLabel={(value, index) => index}
+                    contentInset={{ left: 10, right: 10 }}
+                    svg={{ fontSize: 10, fill: '#2389DA' }}
+                />
+            </View>
+            {/* <View style={styles.dropcontainer}>
             <DropDownPicker
             items={ChartType}
             style={{borderColor:'red'}}
-            defaultValue={selectedTypeValue}
+            defaultValue={selectedModuleValue}
             containerStyle={{
                 height:40, 
                 width:wp('46.3%'),              
@@ -112,18 +211,15 @@ export default class graphScreen extends React.Component{
                 textAlign:'left'                   
             }}
            
-            ></DropDownPicker>
-            </View>
-            </View>
-            
+            ></DropDownPicker> */}
+            </View>            
         );
     }
 }
 
 const styles = StyleSheet.create({
     container: {
-        justifyContent:'center',
-        paddingHorizontal:wp('3.5%')
+        justifyContent:'center'
     },
     dropContainer: {
         flex:1

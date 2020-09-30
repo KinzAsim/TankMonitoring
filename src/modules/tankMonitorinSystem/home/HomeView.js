@@ -71,7 +71,7 @@ import {getSensors} from '../../../redux/action/tankAction';
         else{
             return(
             <SafeAreaView style={styles.container}>  
-              <StatusBar  backgroundColor="black"/>
+              <StatusBar  backgroundColor="#2389DA"/>
 
               {sensorLoading ? (
                     <View style={{flex:1, alignItems:'center',justifyContent:'center',backgroundColor:'black'}}>
@@ -84,11 +84,10 @@ import {getSensors} from '../../../redux/action/tankAction';
                     <DropDownPicker
                     items={Modules}
                     defaultValue={selectedModuleValue}
-                    style={{borderColor:'#0F5E9C',backgroundColor:'#000'}}
+                    style={{borderColor:'#0F5E9C',backgroundColor:'#fff'}}
                     containerStyle={{
                         height:40, 
                         width:wp('86.3%'),                                              
-                        borderWidth:1,
                         paddingLeft:50,
                         marginTop:10,
                         marginBottom:20}}
@@ -107,7 +106,7 @@ import {getSensors} from '../../../redux/action/tankAction';
                     labelStyle={{
                         fontSize:14,
                         textAlign:'left',
-                        color:'#fff'                                       
+                        color:'#2389DA'                                       
                     }}
                     //mapping
                     onChangeItem={item => this.handleChange(item)}
@@ -137,39 +136,42 @@ import {getSensors} from '../../../redux/action/tankAction';
                     />
                     </Svg> */}
 {/* //#5CDB95, #05386B, #5D001E, #9A1750, E3AFBC*/}
-                   {/* // <View style={{flexDirection:'column-reverse'}}> */}
-
+{/* // <View style={{flexDirection:'column-reverse'}}> */}
+                    <View style={{backgroundColor:'#fff', marginHorizontal:20, elevation:50, marginTop:50, marginBottom:50,borderRadius:28}}>
                     <Card
-                    containerStyle={[styles.cardMainContainer,{backgroundColor:'#0F5E9C', marginTop:50, width:400, height:100
+                    containerStyle={[styles.cardMainContainer,{backgroundColor:'#fff', marginTop:50, width:400, height:100, elevation:30, borderRadius: 800
                     }]}
                     > 
                     <Card.Title style={styles.cardTitle}>UPPER TANK FILLLEVEL</Card.Title>
                     <View style={{justifyContent:'center',flexDirection:'row-reverse'}}>
                     <View style={styles.IconView}
                     >
-                    <Icon3 name="graphic-eq" size={40} color="#0F5E9C"/>
+                    <Icon1 name="battery-high" size={40} color="#0F5E9C"/>
                     </View>
                        <Text style={styles.text}>{tank[Index].fillLevel}</Text>
                     </View>                                    
                     </Card>
         
                     <Card
-                    containerStyle={[styles.cardMainContainer,{backgroundColor:'#0F5E9C',borderColor:'#05386B', marginTop:50, width:400, height:100}]}>
+                    containerStyle={[styles.cardMainContainer,{backgroundColor:'#fff', marginTop:20, width:400, height:100, elevation:30,marginBottom:50}]}>
                         <Card.Title style={styles.cardTitle}>LOWER TANK FILLLEVEL</Card.Title>
                         <View style={{justifyContent:'center', flexDirection:'row-reverse'}}>
                     <View style={styles.IconView}>
-                        <Icon3 name="graphic-eq" size={40} color="#0F5E9C"/>
+                        <Icon1 name="battery-low" size={40} color="#0F5E9C"/>
                     </View>
                         <Text              
                         style={styles.text}>{tank[Index].fillLevel1}</Text>  
                         </View>                
                     </Card>
+                    </View>
+
+                  
             {/* </View> */}
         
                     <Card
-                    containerStyle={[styles.cardMainContainer1,{backgroundColor:'#0F5E9C',borderColor:'#0F5E9C'}]}>
+                    containerStyle={[styles.cardMainContainer1,{backgroundColor:'#fff',borderColor:'#fff', elevation:80, height:280,marginHorizontal:110, borderRadius:28}]}>
                         <Card.Title style={styles.cardTitle1}>MOTOR STATUS</Card.Title>
-                    <View style={{justifyContent:'center',flexDirection:'row-reverse', marginTop:20}}>
+                    <View style={{justifyContent:'center', marginTop:30, alignItems:'center',}}>
                         <View style={styles.IconView1}>
                         <Icon4 name="poweroff" size={30} color="#0F5E9C"/>
                         </View>
@@ -220,23 +222,21 @@ export default connect(mapStateToProps,{getSensors})(HomeScreen);
 const styles = StyleSheet.create({
     container: {
        flex:1,
-       backgroundColor:'#000',     
+       backgroundColor:'#fff',     
     },
-    cardMainContainer:   {               
-        borderColor:'#000',
-        elevation:10,
-        shadowRadius:10,
+    cardMainContainer:   {                       
+        elevation:60,
         justifyContent:'center',
-        width: 500,
-        height: 200,
-        marginLeft:50, 
+        shadowOffset: {width: wp('5%'), height: hp('5%')},
+        shadowOpacity: 0.9,
+        shadowRadius: wp('3%'),
+        marginLeft:20, 
         borderRadius: 200/2,
         //marginBottom:15,
     },
     cardMainContainer1: {
-        width:460,
-        marginTop:280,
-        height:200,
+        width:260,       
+        height:125,
         borderWidth: 1,
         elevation:60,
         shadowRadius:60, 
@@ -245,13 +245,12 @@ const styles = StyleSheet.create({
     cardTitle: {
         fontSize: 20,
         marginBottom: hp('0.0%'),
-        color:'#fff'
+        color:'#0F5E9C'
     },
     cardTitle1: {
-        fontSize:15,
-        color:'#fff',
+        fontSize:18,
+        color:'#0F5E9C',
         marginBottom: hp('0.5%'),
-     
     },
     IconView:{
         width:55,
@@ -264,25 +263,27 @@ const styles = StyleSheet.create({
         elevation:10,                   
     },
     IconView1: {
-        width:55,
-        height:55,
+        width:85,
+        height:85,
         borderRadius:15,
+        elevation:30,
         backgroundColor:'#fff',
         alignItems:'center',
         justifyContent:'center',
-        marginLeft:150           
+        marginLeft:10           
     },
     text: {
         marginBottom:5,
         fontSize:25,
         fontWeight:'bold',
-        color:'#fff',
+        color:'#0F5E9C',
         
     },
     text1: {       
         fontSize:50,
         fontWeight:'bold',
-        color:'#fff'
+        color:'#0F5E9C',
+        marginTop:20
     },
     containerWave: {
         

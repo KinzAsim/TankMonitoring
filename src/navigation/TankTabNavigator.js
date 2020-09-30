@@ -4,11 +4,13 @@ import { Image, View, StyleSheet, Text } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { colors } from '../style';
 import NotificationPusher from './notificationpusher';
+import ThresholdScreen from '../modules/tankMonitorinSystem/settings/thresholds';
 import HomeScreen from '../modules/tankMonitorinSystem/home/HomeView';
 import logScreen from '../modules/tankMonitorinSystem/logs/logView';
+import graphScreen from '../modules/tankMonitorinSystem/charts/graphs';
 // import graphScreen from '../modules/tankMonitorinSystem/charts/graphs';
 // import alertScreen from '../modules/tankMonitorinSystem/alerts/recentAlerts';
-
+const iconSetting = require('../../assets/images/tabbar/pages.png')
 const iconHome = require('../../assets/images/tabbar/home.png');
 const iconAlert = require('../../assets/images/tabbar/alert.png');
 const iconGraphs = require('../../assets/images/tabbar/chart.png');
@@ -31,6 +33,18 @@ export default createBottomTabNavigator(
           title: 'Logs'
         }
      },
+     Charts: {
+      screen : graphScreen,
+      navigationOptions: {
+        title: 'Charts'
+      }
+   },
+   Threshold: {
+    screen : ThresholdScreen,
+    navigationOptions: {
+      title: 'Settings'
+    }
+ },
     
   },
   
@@ -47,6 +61,12 @@ export default createBottomTabNavigator(
           case 'Logs':
             iconSource = iconCalendar;
             break;
+          case 'Charts':
+              iconSource = iconGraphs;
+            break;
+            case 'Threshold':
+              iconSource = iconSetting;
+            break;
           default:
             iconSource = iconComponents;
         }
@@ -62,15 +82,17 @@ export default createBottomTabNavigator(
       },
     }),
     tabBarPosition: 'bottom',
-    animationEnabled: false,
+    animationEnabled: true,
     swipeEnabled: false,
     tabBarOptions: {
       showLabel: true,
       style: {
-        backgroundColor:'#000'
+        backgroundColor:'#fff'
       },
       labelStyle: {
-        color: '#fff'
+        color: '#2389DA',
+        shadowColor:'#000',
+        elevation:60
       },
     },
   },

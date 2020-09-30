@@ -5,7 +5,6 @@ import login from './../modules/auth/login';
 import TankTabNavigator from './TankTabNavigator';
 import AuthLoadingScreen from '../modules/auth/AuthLoadingScreen';
 import NotificationIcon from './notificationIcon';
-import logScreen from '../modules/tankMonitorinSystem/logs/logView';
 import NotificationView from '../modules/notification/notificationView';
 import NotificationPusher from './notificationpusher';
 
@@ -39,14 +38,14 @@ const App_Stack = createStackNavigator({
          title: 'Tank Monitoring System',
     
         headerTitleStyle: {
-         color:'white'
+         color:'#2389DA'
         },
          headerShown:true,
          
          headerBackImage:()=>false,
     
          headerStyle: {
-            backgroundColor:'#000',   
+            backgroundColor:'#fff',   
         }, 
                 
         headerRight:()=>  <NotificationIcon navigationProps={navigation}/>        

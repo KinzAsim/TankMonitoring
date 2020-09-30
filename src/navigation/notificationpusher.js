@@ -21,14 +21,14 @@ class NotificationPusher extends React.Component{
     
 //pusher 
 async componentDidMount() {
-    console.log('pusher file');
+    //console.log('pusher file');
     const {user,updateSensors,addNotification,notification} = await this.props;
 
     var pusher = new Pusher('f00f0afe5cbf360133db', {
         cluster: 'ap2',
         forceTLS: true
     });
-   console.log('id', user.id)
+   //console.log('id', user.id)
 
     channel = pusher.subscribe(`${user.id}`);
     //console.log('channel',channel)

@@ -76,7 +76,7 @@ export default class graphScreen extends React.Component{
                 elevation:50}}
             labelStyle={{
                 fontSize:15,
-                color:'#2389DA',
+                color:'#800080',
                 textAlign:'left'                   
             }}
            
@@ -134,7 +134,7 @@ export default class graphScreen extends React.Component{
                 elevation:50}}
             labelStyle={{
                 fontSize:14,
-                color:'#2389DA',
+                color:'#800080',
                 textAlign:'left'                   
             }}
            
@@ -155,7 +155,7 @@ export default class graphScreen extends React.Component{
                     data={data}
                     formatLabel={(value, index) => index}
                     contentInset={{ left: 10, right: 10 }}
-                    svg={{ fontSize: 10, fill: '#2389DA' }}
+                    svg={{ fontSize: 10, fill: '#800080' }}
                 />
             </View>
             {/* <View style={styles.dropcontainer}>

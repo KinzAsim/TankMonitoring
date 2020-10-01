@@ -13,9 +13,10 @@ class Item extends React.Component{
 //colors.primary,colors.secondary
     render() {
         const {created_at,updated_at,messagedata,title} = this.props; 
-       // console.log('messagedata',messagedata)       
+       // console.log('messagedata',messagedata)
+       //colors={["#0F5E9C",colors.secondary]}        
         return(
-          <LinearGradient colors={["#0F5E9C",colors.secondary]}  style={{borderRadius:30,width:wp('93%'),marginBottom:10, marginLeft:wp('3.5%'),marginVertical:hp('0.1%')}}>
+          <LinearGradient colors={["#0F5E9C","#800080"]}  style={{borderRadius:30,width:wp('93%'),marginBottom:10, marginLeft:wp('3.5%'),marginVertical:hp('0.1%')}}>
             <View
             //key={item.id}
             style={styles.itemThreeContainer}

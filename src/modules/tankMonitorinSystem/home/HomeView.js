@@ -37,8 +37,7 @@ import {getSensors} from '../../../redux/action/tankAction';
     }
     
     async componentDidMount () {
-        const {user} = this.props;
-    
+        const {user} = this.props;    
         const done = await this.props.getSensors(user.id);
         if(done=='done'){
             console.log('done');
@@ -46,8 +45,7 @@ import {getSensors} from '../../../redux/action/tankAction';
     }   
         handleChange = (item) => {        
            const {tank} = this.props;
-           const i = tank.findIndex(x => x.name === item.value);
-         
+           const i = tank.findIndex(x => x.name === item.value);         
             this.setState({
             selectedModule:item.label,
             selectedModuleValue:item.value,
@@ -282,7 +280,7 @@ const styles = StyleSheet.create({
     text1: {       
         fontSize:50,
         fontWeight:'bold',
-        color:'#0F5E9C',
+        color:'#800080',
         marginTop:20
     },
     containerWave: {

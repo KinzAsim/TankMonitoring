@@ -83,8 +83,7 @@ class LogsScreen extends React.Component {
   }
 
     handleModuleChange = (item) => {
-        const {tank}= this.props;
-      
+        const {tank}= this.props;     
         const {selectedTypeValue,startDate,endDate} = this.state;
         const i = tank.findIndex(s => s.name === item.value);
     this.setState({
@@ -236,7 +235,7 @@ class LogsScreen extends React.Component {
             </View>
 
             {logsLoading ? (
-              <View style={{flex:1, alignItems:'center',justifyContent:'center',backgroundColor:'black'}}>
+              <View style={{flex:1, alignItems:'center',justifyContent:'center',backgroundColor:'white'}}>
                 <ActivityIndicator size="large" color="#fff"/>
               </View>
             ) : (
@@ -317,7 +316,7 @@ export default connect(mapStateToProps,{getLogs,getSensors})(LogsScreen);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#000",
+    backgroundColor: "#fff",
     width: wp('100%')
   },
   Dropdown: { width: wp('45%'), height: hp('5%'), marginHorizontal:wp('2.5%')},
@@ -335,14 +334,14 @@ const styles = StyleSheet.create({
   },
 
   DatePicker:{width: wp('37%'), marginLeft:wp('1%')},
-  DatePickerText:{marginLeft: wp('3%'), color: "#fff",fontWeight:'bold'},
+  DatePickerText:{marginLeft: wp('3%'), color: "#800080",fontWeight:'bold'},
   DatePickerInput:{marginLeft: wp('0%'),height:hp('3%')},
   DatePickerIcon: {top: hp('0%'), marginLeft: wp('0%')},
-  DateText: {color: "#fff"},
+  DateText: {color: "#800080"},
 
   TextView:{marginTop: hp('30%'),alignItems: 'center', justifyContent: 'center'},
-  Text:{color:'#fff', fontWeight:'bold',fontSize: hp('2%')},
-  flat: {backgroundColor:'#000',flex:1,marginTop:20}
+  Text:{color:'#800080', fontWeight:'bold',fontSize: hp('2%')},
+  flat: {backgroundColor:'#fff',flex:1,marginTop:20}
   
 
   

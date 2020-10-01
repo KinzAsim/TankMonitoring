@@ -60,8 +60,7 @@ async componentDidMount() {
               ongoing: false, // (optional) set whether this is an "ongoing" notification
               priority: "high", // (optional) set notification priority, default: high
               visibility: "private", // (optional) set notification visibility, default: private
-              importance: "high", // (optional) set notification importance, default: high
-          
+              importance: "high", // (optional) set notification importance, default: high          
               /* iOS and Android properties */
               //title: "RS Home", // (optional)
               message: data.title, // (required)
@@ -81,7 +80,7 @@ render() {
 
 
     return(
-     <StatusBar  backgroundColor="black"/>
+     <StatusBar  backgroundColor="#800080"/>
         ); 
     }
 }

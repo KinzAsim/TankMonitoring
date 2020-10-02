@@ -1,7 +1,16 @@
 import React from 'react';
 import {View,StyleSheet} from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { LineChart, Grid, YAxis, XAxis} from 'react-native-svg-charts'
+import { LineChart, Grid, XAxis,BarChart} from 'react-native-svg-charts'
+// import {
+//     LineChart,
+//     BarChart,
+//     PieChart,
+//     ProgressChart,
+//     ContributionGraph,
+//     StackedBarChart
+//   } from "react-native-chart-kit";
+  
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 export default class graphScreen extends React.Component{
@@ -40,6 +49,22 @@ export default class graphScreen extends React.Component{
         const {ChartList,selectedModuleValue,ChartType, ChartRange,selectedRangeValue, selectedTypeValue}= this.state;
         console.log('chart', selectedTypeValue)
         const data = [50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80]
+        const data1 = [ 14, -1, 10, -95, -94, -24, -8, 85, -1, 35, -53, 53, -78, 66, 96, 33, -26, -32, 73, 8 ]
+        const data2 = [ 24, 28, 93, 77, -42, -62, 52, -87, 21, 53, -78, -62, -72, -6, 89, -70, -94, 10, 86, 84 ]   
+        const barData = [
+            {
+                data: data1,
+                svg: {
+                    stroke: 'rgb(134, 65, 244)',
+                },
+            },
+            {
+                data: data2,
+                svg: {
+                    stroke: '#2389DA',
+                },
+            },
+        ]
  
         // const colors = ['#8800cc', '#aa00ff', '#cc66ff', '#eeccff']
         // const keys = ['apples', 'bananas', 'cherries', 'dates']
@@ -140,13 +165,14 @@ export default class graphScreen extends React.Component{
            
             ></DropDownPicker>
              </View>
-            <View style={{ height: 200, padding: 20 }}>
-                <LineChart
-                    style={{ flex: 1 }}
-                    data={data}
+            <View style={{ height: 300, padding: 20 }}>
+            <LineChart
+                    style={{ flex: 1}}
+                    data={barData}
                     gridMin={0}
-                    contentInset={{ top: 10, bottom: 10 }}
-                    svg={{ stroke: 'rgb(24, 127, 242)' }}
+                    width = {wp('125%')}
+                    contentInset={{ top: 10, bottom: 10, color:'rgb(134, 65, 244)'  }}
+                    svg={{ stroke: 'rgb(134, 65, 244)' }}
                 >
                     <Grid />
                 </LineChart>
@@ -155,7 +181,7 @@ export default class graphScreen extends React.Component{
                     data={data}
                     formatLabel={(value, index) => index}
                     contentInset={{ left: 10, right: 10 }}
-                    svg={{ fontSize: 10, fill: '#800080' }}
+                    svg={{ fontSize: 15, fill: '#800080'}}
                 />
             </View>
             {/* <View style={styles.dropcontainer}>

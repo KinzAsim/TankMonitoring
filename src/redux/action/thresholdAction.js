@@ -2,26 +2,83 @@ import axios from 'axios';
 import {url} from './types';
 
 
-export const ThreshlodAction = (threshold,id) => {
-   // console.log('ThresholdAction', data)
-    dispatch()({
-        type:'UPPER_THERSHOLD'
-    });
-    body = {
-        threshold
+export const ThresholdLower = (threshold,type,id) =>  async (dispatch,getState) =>{
+ // console.log('Threshold',threshold,type,id)
+    const config = {
+        headers: {
+            'Content-type':'Application/json'
+        }
     }
+   const body = {
+        threshold,
+    };
 
     try{
-        const data = await axios.post(`${url}/threshold/${type}/${id}`,body,config)
-        console.log('ThresholdAction',data)
-        // dispatch({
-        //     type: 'GET_THRESHOLD',
-        //     payload: data.data
-        // })
-        resolve('done');
+        const data = await axios.post(`${url}/rs/threshold/${type}/${id}`,body,config)
+        //console.log('Lower',data);
+        if (type === 'OH'){
+            dispatch({
+                //upper => lower threshold
+                type: 'UPPER_LOWER_THERSHOLD',
+                payload: threshold,
+                id:id
+            })
+        }
+        else if (type === 'UG'){
+            dispatch({
+                //upper => lower threshold
+                type: 'LOWER_LOWER_THERSHOLD',
+                payload: threshold,
+                id:id
+            })
+        }
+        else {
+            console.log('Error')
+        }
+        
+
     }
     catch(err) {
         console.log(err)
-        reject(err);
+      
     }
 }
+
+
+export const ThresholdUpper = (upperThreshold,type,id) =>  async (dispatch,getState) => {
+    console.log('ThresholdUpper',upperThreshold,type,id)
+     const config = {
+         headers: {
+             'Content-type':'Application/json'
+         }
+     }
+    const body = {
+         upperThreshold,
+     };
+ 
+     try{
+         const data = await axios.post(`${url}/rs/upperThreshold/${type}/${id}`,body,config)
+      //  console.log(data);
+      if(type === 'OH_U'){
+        dispatch({
+            type: 'UPPER_UPPER_THERSHOLD',
+            payload: upperThreshold,
+            id:id
+        })
+      }
+      else if(type === 'UG_U'){
+        dispatch({
+            type: 'LOWER_UPPER_THERSHOLD',
+            payload: upperThreshold,
+            id:id
+        })
+      }
+      else {
+          console.log("Error")
+      }
+        
+     }
+     catch(err) {
+         console.log(err);
+     }
+ }

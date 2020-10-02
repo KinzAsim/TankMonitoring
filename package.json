@@ -25,6 +25,7 @@
     "react": "16.13.1",
     "react-native": "^0.63.2",
     "react-native-animated-wave": "^1.2.3",
+    "react-native-chart-kit": "^6.6.1",
     "react-native-datepicker": "^1.7.2",
     "react-native-dialog": "^5.6.0",
     "react-native-dialog-input": "^1.0.8",

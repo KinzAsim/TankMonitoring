@@ -32,8 +32,8 @@ const tankReducer = (state = initState, action) => {
                     ...state.sensors.slice(index+1),
                 ]
             }
-            case 'UPDATE_FILLLEVEL1':
-      //      console.log('Reducer', action.payload)
+        case 'UPDATE_FILLLEVEL1':
+      //    console.log('Reducer', action.payload)
             index = state.sensors.findIndex(s => s._id === action.payload.lms_id)
             return {
                 ...state,

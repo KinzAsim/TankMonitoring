@@ -5,6 +5,7 @@ import errorReducer from './reducer/errorReducer';
 import tankReducer from './reducer/tankReducer';
 import NotificationReducer from './reducer/notificationReducer';
 import LogReducer from './reducer/LogsReducer';
+import ThresholdReducer from './reducer/thresholdReducer';
 
 //rootReducer 
 
@@ -15,5 +16,6 @@ export default combineReducers({
   error: errorReducer,
   tank: tankReducer,
   notifications: NotificationReducer,
-  logs: LogReducer
+  logs: LogReducer,
+  threshold:ThresholdReducer
 }); 

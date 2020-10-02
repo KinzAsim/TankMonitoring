@@ -6,6 +6,8 @@ import DialogInput from 'react-native-dialog-input';
 import {connect} from 'react-redux';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import DropDownPicker from 'react-native-dropdown-picker';
+import {ThresholdUpper,ThresholdLower} from '../../../redux/action/thresholdAction';
+
 
 class ThresholdScreen extends React.Component{
     constructor(props){
@@ -16,92 +18,103 @@ class ThresholdScreen extends React.Component{
             ],
             selectedModule:0,
             selectedModuleValue: 'Fill Level module',
-            dialogVisible: false,
-            dialogVisible1:false,
+            dialogVisible1: false,
             dialogVisible2:false,
             dialogVisible3:false,
+            dialogVisible4:false,
             Index:0
           };
        }
 
-          showDialog = () => {
-            const{dialogVisible} = this.state
-            this.setState({ dialogVisible: true});
-          };
-            // if(dialogVisible1 === Upper ){
-            //     this.setState({ dialogVisible: true });
-            // }
-            // else if(dialogVisible === Lower ){
-            //     this.setState({ dialogVisible1: true });
-            // }                                      
+    //    componentDidMount () {
+    //        const {tank}=this.props;
+    //    }
+
           showDialog1 = () => {
-            const{dialogVisible1} = this.state
-                this.setState({ dialogVisible1: true });       
+            this.setState({ dialogVisible1: true});
           };
+                                             
           showDialog2 = () => {
-            const{dialogVisible2} = this.state
-                this.setState({ dialogVisible2: true });       
+            this.setState({ dialogVisible2: true });       
           };
           showDialog3 = () => {
-            const{dialogVisible3} = this.state
+            
                 this.setState({ dialogVisible3: true });       
+          };
+          showDialog4 = () => {
+           
+                this.setState({ dialogVisible4: true });       
           };         
-          sendInput = (inputText) => {      
-            this.setState({ dialogVisible: false }); 
-          };
-          sendInput1 = (inputText) => {
-            console.log("Input1", inputText)
-            this.setState({ dialogVisible1: false }); 
-          };
-          sendInput2 = (inputText) => {
-            console.log("Input2", inputText)
-            this.setState({ dialogVisible2: false }); 
-          };
-          sendInput3 = (inputText) => {
-            console.log("Input3", inputText)
-            this.setState({ dialogVisible3: false }); 
-          };
-          closeDialog = () => {
-            const{dialogVisible} = this.state
-          //  console.log('visible0',dialogVisible) 
-                this.setState({ dialogVisible: false});              
-          }  
+          
           closeDialog1 = () => {
-            const{dialogVisible1} = this.state
-          //  console.log('visible1',dialogVisible1)    
-                this.setState({ dialogVisible1: false});
-          } 
-          closeDialog2 = () => {
-            const{dialogVisible2} = this.state
-          //  console.log('visible2',dialogueVisible2)    
-                this.setState({ dialogVisible2: false});
+                this.setState({ dialogVisible1: false});              
           }  
-          closeDialog3 = () => {
-            const{dialogVisible3} = this.state
-         //   console.log('visible3',dialogVisible3)    
-                this.setState({ dialogVisible3: false});
+          closeDialog2 = () => {   
+                this.setState({ dialogVisible2: false});
           } 
+          closeDialog3 = () => {   
+                this.setState({ dialogVisible3: false});
+          }  
+          closeDialog4 = () => {   
+                this.setState({ dialogVisible4: false});
+          }
+          
+          sendInput1 = (inputText) => {
+            //console.log('upper-1',inputText);          
+            const {tank} = this.props;    
+            //console.log('Threshold',threshold,type,id)
+            const{selectedModuleValue}=this.state; 
+            const i = tank.findIndex(x => x.name === selectedModuleValue);   
+            this.props.ThresholdUpper(inputText,'OH_U',tank[i]._id);
+            this.closeDialog1();                  
+            };
+            sendInput2 = (inputText) => {
+                // console.log('lower-1',inputText);
+                const {tank} = this.props;  
+                const{selectedModuleValue}=this.state; 
+                const i = tank.findIndex(x => x.name === selectedModuleValue);
+                this.props.ThresholdLower(inputText,'OH',tank[i]._id);
+                this.closeDialog2();
+    
+            };
+            sendInput3 = (inputText) => {
+             // console.log('upper-2',inputText);
+              const {tank} = this.props;    
+             // console.log('Threshold',upperThreshold,type,id)
+              const{selectedModuleValue}=this.state; 
+              const i = tank.findIndex(x => x.name === selectedModuleValue);   
+              this.props.ThresholdUpper(inputText,'UG_U',tank[i]._id);
+              this.closeDialog3();
+            };
+            sendInput4 = (inputText) => {
+                console.log('lower-2',inputText);
+                const{tank}= this.props;
+                const{selectedModuleValue}=this.state;
+                const i = tank.findIndex(x => x.name === selectedModuleValue);
+                this.props.ThresholdLower(inputText,'UG',tank[i]._id);
+                this.closeDialog4();
+            };
           
           handleChange = (item) => {
-            const {tank} = this.props;
-            console.log('threshold',tank)
+            const {tank,selectedModuleValue} = this.props;
+           // console.log('threshold',tank)
             const i = tank.findIndex(x => x.name === item.value);         
             this.setState({
             selectedModule:item.label,
             selectedModuleValue:item.value,
             Index:i
             })
-           
+         
           }
         
     render(){
-        const {showDialog,sendInput,closeDialog,dialogVisible,dialogVisible2,dialogVisible1,dialogVisible3,Modules,selectedModuleValue,Index} = this.state;
+        const {Modules,selectedModuleValue,Index} = this.state;
         const {tank} = this.props;
        // console.log('Tank',tank)
 
         return(
             <View style={styles.container}>
-                 <View style={{borderRadius:8,width: wp('45%'), marginLeft:wp('19%')}}>
+                 <View style={{borderRadius:8,width: wp('35%'), marginLeft:wp('28%'), marginTop:10}}>
             <DropDownPicker
                       items={Modules}              
                       defaultValue={selectedModuleValue}
@@ -126,11 +139,11 @@ class ThresholdScreen extends React.Component{
                 <View style={styles.card}>
                     <View style={{marginTop:70}}>
                     <Text style={styles.text}>UPPER_TANK THRESHOLD</Text>
-                    <View style={{flexDirection:'row-reverse'}}>
+                    <View style={{flexDirection:'row'}}>
                     <Card containerStyle={[styles.cardMainContainer,{backgroundColor:'#fff', width:200, height:200
                     }]}>
                 <Card.Title>Upper_Level</Card.Title>
-                    <View style={{flexDirection:'row-reverse',marginHorizontal:20}}>
+                    <View style={{flexDirection:'row',marginHorizontal:20}}>
                         <View style={styles.IconView}>
                               <Icon1 name="propane-tank-outline" size={50} color="#0F5E9C"/>
                         </View>                             
@@ -139,15 +152,15 @@ class ThresholdScreen extends React.Component{
                         </View>          
                         </View>
                 <View style={{marginTop:20, marginLeft:20}}>
-                    <TouchableOpacity onPress={() => this.showDialog()}>
+                    <TouchableOpacity onPress={() => this.showDialog1()}>
                     <Text>Set Thresholds</Text>
                     </TouchableOpacity>
-                    <DialogInput isDialogVisible={this.state.dialogVisible}
+                    <DialogInput isDialogVisible={this.state.dialogVisible1}
                         title={"Set Threshold"}
                         message={"Do you want to reset threshold?"}
                         hintInput ={"HINT INPUT"}
-                        submitInput={ (inputText) => {this.sendInput(inputText)} }
-                        closeDialog={ () => this.closeDialog()}>
+                        submitInput={ (inputText) => {this.sendInput1(inputText)} }
+                        closeDialog={ () => this.closeDialog1()}>
                     </DialogInput>                  
                     </View>                            
                 </Card>
@@ -164,15 +177,15 @@ class ThresholdScreen extends React.Component{
                         </View>          
                      </View>     
                      <View style={{marginTop:20, marginLeft:20}}>
-                    <TouchableOpacity onPress={() => this.showDialog1()}>
+                    <TouchableOpacity onPress={() => this.showDialog2()}>
                     <Text>Set Thresholds</Text>
                     </TouchableOpacity>
-                    <DialogInput isDialogVisible={this.state.dialogVisible1}
+                    <DialogInput isDialogVisible={this.state.dialogVisible2}
                         title={"Set Threshold"}
                         message={"Do you want to reset threshold?"}
                         hintInput ={"HINT INPUT"}
-                        submitInput={ (inputText) => {this.sendInput1(inputText)} }
-                        closeDialog={ () => this.closeDialog1()}>
+                        submitInput={ (inputText) => {this.sendInput2(inputText)} }
+                        closeDialog={ () => this.closeDialog2()}>
                     </DialogInput>                  
                     </View>        
                     </Card>
@@ -182,7 +195,7 @@ class ThresholdScreen extends React.Component{
                     
                     <View style={{marginTop:50}}>
                     <Text style={styles.text}>LOWER_TANK THRESHOLD</Text>
-                    <View style={{flexDirection:'row-reverse'}}>
+                    <View style={{flexDirection:'row'}}>
                     <Card containerStyle={[styles.cardMainContainer,{backgroundColor:'#fff', width:200, height:200
                     }]}>
                 <Card.Title>Upper_Level</Card.Title>
@@ -196,15 +209,15 @@ class ThresholdScreen extends React.Component{
                         </View>          
                      </View> 
                      <View style={{marginTop:20, marginLeft:20}}>
-                    <TouchableOpacity onPress={() => this.showDialog2()}>
+                    <TouchableOpacity onPress={() => this.showDialog3()}>
                     <Text>Set Thresholds</Text>
                     </TouchableOpacity>
-                    <DialogInput isDialogVisible={this.state.dialogVisible2}
+                    <DialogInput isDialogVisible={this.state.dialogVisible3}
                         title={"Set Threshold"}
                         message={"Do you want to reset threshold?"}
                         hintInput ={"HINT INPUT"}
-                        submitInput={ (inputText) => {this.sendInput2(inputText)} }
-                        closeDialog={ () => this.closeDialog2()}>
+                        submitInput={ (inputText) => {this.sendInput3(inputText)} }
+                        closeDialog={ () => this.closeDialog3()}>
                     </DialogInput>                  
                     </View>                    
                 </Card>
@@ -222,15 +235,15 @@ class ThresholdScreen extends React.Component{
                         </View>          
                      </View>     
                     <View style={{marginTop:20, marginLeft:20}}>
-                    <TouchableOpacity onPress={() => this.showDialog3()}>
+                    <TouchableOpacity onPress={() => this.showDialog4()}>
                     <Text>Set Thresholds</Text>
                     </TouchableOpacity>
-                    <DialogInput isDialogVisible={this.state.dialogVisible3}
+                    <DialogInput isDialogVisible={this.state.dialogVisible4}
                         title={"Set Threshold"}
                         message={"Do you want to reset threshold?"}
                         hintInput ={"HINT INPUT"}
-                        submitInput={ (inputText) => {this.sendInput3(inputText)} }
-                        closeDialog={ () => this.closeDialog3()}>
+                        submitInput={ (inputText) => {this.sendInput4(inputText)} }
+                        closeDialog={ () => this.closeDialog4()}>
                     </DialogInput>                  
                     </View> 
                     </Card>
@@ -248,9 +261,10 @@ class ThresholdScreen extends React.Component{
         const mapStateToProps = (state) => ({
             user:state.auth.user,
             tank:state.tank.sensors,
+            threshold:state.threshold.sensors
         })
 
-export default connect(mapStateToProps,null)(ThresholdScreen);
+export default connect(mapStateToProps,{ThresholdUpper,ThresholdLower})(ThresholdScreen);
 
 
 const styles = StyleSheet.create({

@@ -33,10 +33,10 @@ export const updateSensors = (data)=> (dispatch,getState) => {
        
         if(data.fillLevel !== undefined){  
     //   console.log('Level',data)       
-            // dispatch ({
-            //     type:'UPDATE_FILLLEVEL',
-            //     payload:data
-            // })
+            dispatch ({
+                type:'UPDATE_FILLLEVEL',
+                payload:data
+            })
        }
        else if(data.fillLevel1 !== undefined){  
     //    console.log('Lower',data)       

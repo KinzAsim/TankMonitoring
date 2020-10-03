@@ -22,7 +22,7 @@ export const ThresholdLower = (threshold,type,id) =>  async (dispatch,getState) 
                 type: 'UPPER_LOWER_THERSHOLD',
                 payload: threshold,
                 id:id
-            })
+            });
         }
         else if (type === 'UG'){
             dispatch({
@@ -30,7 +30,7 @@ export const ThresholdLower = (threshold,type,id) =>  async (dispatch,getState) 
                 type: 'LOWER_LOWER_THERSHOLD',
                 payload: threshold,
                 id:id
-            })
+            });
         }
         else {
             console.log('Error')
@@ -53,25 +53,25 @@ export const ThresholdUpper = (upperThreshold,type,id) =>  async (dispatch,getSt
          }
      }
     const body = {
-         upperThreshold,
+         upperThreshold:upperThreshold,
      };
- 
+     console.log('body',body)
      try{
          const data = await axios.post(`${url}/rs/upperThreshold/${type}/${id}`,body,config)
-      //  console.log(data);
+      //console.log(data);
       if(type === 'OH_U'){
         dispatch({
             type: 'UPPER_UPPER_THERSHOLD',
             payload: upperThreshold,
             id:id
-        })
+        });
       }
       else if(type === 'UG_U'){
         dispatch({
             type: 'LOWER_UPPER_THERSHOLD',
             payload: upperThreshold,
             id:id
-        })
+        });
       }
       else {
           console.log("Error")

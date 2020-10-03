@@ -22,7 +22,7 @@ class ThresholdScreen extends React.Component{
             dialogVisible2:false,
             dialogVisible3:false,
             dialogVisible4:false,
-            Index:0
+            Index:2
           };
        }
 
@@ -114,11 +114,11 @@ class ThresholdScreen extends React.Component{
 
         return(
             <View style={styles.container}>
-                 <View style={{borderRadius:8,width: wp('35%'), marginLeft:wp('28%'), marginTop:10}}>
+                 <View style={{borderRadius:8,width: wp('35%'), marginHorizontal:wp('25%'), marginTop:hp('2%')}}>
             <DropDownPicker
                       items={Modules}              
                       defaultValue={selectedModuleValue}
-                      containerStyle={{height: 40, width: wp('45%')}}
+                      containerStyle={{height:hp('4%'), width: wp('45%')}}
                       style={{backgroundColor:'#fff'}}
                       itemStyle={{
                           //justifyContent: 'flex-start',
@@ -137,13 +137,13 @@ class ThresholdScreen extends React.Component{
                   />
                  </View >
                 <View style={styles.card}>
-                    <View style={{marginTop:70}}>
+                    <View style={{marginTop:hp('6%'), marginHorizontal:wp('6%')}}>
                     <Text style={styles.text}>UPPER_TANK THRESHOLD</Text>
                     <View style={{flexDirection:'row'}}>
-                    <Card containerStyle={[styles.cardMainContainer,{backgroundColor:'#fff', width:200, height:200
+                    <Card containerStyle={[styles.cardMainContainer,{backgroundColor:'#fff', width:150
                     }]}>
                 <Card.Title>Upper_Level</Card.Title>
-                    <View style={{flexDirection:'row',marginHorizontal:20}}>
+                    <View style={{flexDirection:'row-reverse',marginHorizontal:hp('1%')}}>
                         <View style={styles.IconView}>
                               <Icon1 name="propane-tank-outline" size={50} color="#0F5E9C"/>
                         </View>                             
@@ -165,10 +165,10 @@ class ThresholdScreen extends React.Component{
                     </View>                            
                 </Card>
 
-                    <Card containerStyle={[styles.cardMainContainer,{backgroundColor:'#fff', width:200
+                    <Card containerStyle={[styles.cardMainContainer,{backgroundColor:'#fff', width:150
                     }]}>
                         <Card.Title>Lower_level</Card.Title>
-                        <View style={{flexDirection:'row-reverse',marginHorizontal:20}}>
+                        <View style={{flexDirection:'row-reverse',marginHorizontal:hp('1%')}}>
                         <View style={styles.IconView}>
                               <Icon1 name="propane-tank-outline" size={50} color="#0F5E9C"/>
                         </View>    
@@ -195,11 +195,11 @@ class ThresholdScreen extends React.Component{
                     
                     <View style={{marginTop:50}}>
                     <Text style={styles.text}>LOWER_TANK THRESHOLD</Text>
-                    <View style={{flexDirection:'row'}}>
-                    <Card containerStyle={[styles.cardMainContainer,{backgroundColor:'#fff', width:200, height:200
+                    <View style={{flexDirection:'row',marginHorizontal:wp('6%')}}>
+                    <Card containerStyle={[styles.cardMainContainer,{backgroundColor:'#fff', width:150
                     }]}>
                 <Card.Title>Upper_Level</Card.Title>
-                    <View style={{flexDirection:'row-reverse',marginHorizontal:20}}>
+                    <View style={{flexDirection:'row-reverse',marginHorizontal:hp('1%')}}>
                         <View style={styles.IconView}>
                               <Icon1 name="propane-tank-outline" size={50} color="#0F5E9C"/>
                         </View> 
@@ -222,10 +222,10 @@ class ThresholdScreen extends React.Component{
                     </View>                    
                 </Card>
 
-                    <Card containerStyle={[styles.cardMainContainer,{backgroundColor:'#fff', width:200
+                    <Card containerStyle={[styles.cardMainContainer,{backgroundColor:'#fff', width:150
                     }]}>
                         <Card.Title>Lower_level</Card.Title>
-                        <View style={{flexDirection:'row-reverse',marginHorizontal:20}}>
+                        <View style={{flexDirection:'row-reverse',marginHorizontal:hp('1%')}}>
                         <View style={styles.IconView}>
                               <Icon1 name="propane-tank-outline" size={50} color="#0F5E9C"/>
                         </View> 
@@ -260,8 +260,7 @@ class ThresholdScreen extends React.Component{
 
         const mapStateToProps = (state) => ({
             user:state.auth.user,
-            tank:state.tank.sensors,
-            threshold:state.threshold.sensors
+            tank:state.tank.sensors
         })
 
 export default connect(mapStateToProps,{ThresholdUpper,ThresholdLower})(ThresholdScreen);
@@ -274,15 +273,16 @@ const styles = StyleSheet.create({
     },
     card:{  
         flex:0.96,
-        marginTop:30,
-        marginLeft:0,
-        marginRight:20,
+        marginTop:hp('3%'),
+        marginLeft:wp('4%'),
+        marginRight:wp('4%'),
         backgroundColor:'#fff',
         elevation:10
     },
     cardMainContainer:{
         elevation:60,
-        marginLeft:5
+        marginLeft:wp('5%'),
+        marginRight:wp('1%')
     },
     text:{
         alignSelf:'center', 

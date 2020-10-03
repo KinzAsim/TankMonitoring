@@ -55,8 +55,6 @@ import {getSensors} from '../../../redux/action/tankAction';
     render(){
         const {Modules,selectedModuleValue,Index} = this.state;
         const {user,state,tank,sensorLoading} = this.props; 
-      
-        console.log('sensorloading',sensorLoading);
 
         if(tank[Index] === undefined){
             return(
@@ -135,9 +133,9 @@ import {getSensors} from '../../../redux/action/tankAction';
                     </Svg> */}
 {/* //#5CDB95, #05386B, #5D001E, #9A1750, E3AFBC*/}
 {/* // <View style={{flexDirection:'column-reverse'}}> */}
-                    <View style={{backgroundColor:'#fff', marginHorizontal:20, elevation:50, marginTop:50, marginBottom:50,borderRadius:28}}>
+                    <View style={{backgroundColor:'#800080', marginHorizontal:20, elevation:50, marginTop:hp('2%'), marginBottom:50,borderRadius:28}}>
                     <Card
-                    containerStyle={[styles.cardMainContainer,{backgroundColor:'#fff', marginTop:50, width:400, height:100, elevation:30, borderRadius: 800
+                    containerStyle={[styles.cardMainContainer,{backgroundColor:'#fff', marginTop:hp('4%'), elevation:30, borderRadius: 800
                     }]}
                     > 
                     <Card.Title style={styles.cardTitle}>UPPER TANK FILLLEVEL</Card.Title>
@@ -151,7 +149,7 @@ import {getSensors} from '../../../redux/action/tankAction';
                     </Card>
         
                     <Card
-                    containerStyle={[styles.cardMainContainer,{backgroundColor:'#fff', marginTop:20, width:400, height:100, elevation:30,marginBottom:50}]}>
+                    containerStyle={[styles.cardMainContainer,{backgroundColor:'#fff', marginTop:10, elevation:30,marginBottom:50}]}>
                         <Card.Title style={styles.cardTitle}>LOWER TANK FILLLEVEL</Card.Title>
                         <View style={{justifyContent:'center', flexDirection:'row-reverse'}}>
                     <View style={styles.IconView}>
@@ -167,7 +165,7 @@ import {getSensors} from '../../../redux/action/tankAction';
             {/* </View> */}
         
                     <Card
-                    containerStyle={[styles.cardMainContainer1,{backgroundColor:'#fff',borderColor:'#fff', elevation:80, height:280,marginHorizontal:110, borderRadius:28}]}>
+                    containerStyle={[styles.cardMainContainer1,{backgroundColor:'#fff',borderColor:'#fff', elevation:80,marginHorizontal:100, borderRadius:28}]}>
                         <Card.Title style={styles.cardTitle1}>MOTOR STATUS</Card.Title>
                     <View style={{justifyContent:'center', marginTop:30, alignItems:'center',}}>
                         <View style={styles.IconView1}>
@@ -225,16 +223,15 @@ const styles = StyleSheet.create({
     cardMainContainer:   {                       
         elevation:60,
         justifyContent:'center',
-        shadowOffset: {width: wp('5%'), height: hp('5%')},
+        shadowOffset: {width: wp('2%'), height: hp('2%')},
         shadowOpacity: 0.9,
-        shadowRadius: wp('3%'),
-        marginLeft:20, 
+        shadowRadius: wp('3%'), 
         borderRadius: 200/2,
         //marginBottom:15,
     },
     cardMainContainer1: {
-        width:260,       
-        height:125,
+        width:wp('50%'),       
+        height:hp('50%'),
         borderWidth: 1,
         elevation:60,
         shadowRadius:60, 
@@ -256,7 +253,7 @@ const styles = StyleSheet.create({
         borderRadius:65,
         backgroundColor:'#fff',
         alignItems:'center',
-        marginLeft:250,
+        marginHorizontal:wp('25%'),
         justifyContent:'center',
         elevation:10,                   
     },
@@ -273,6 +270,7 @@ const styles = StyleSheet.create({
     text: {
         marginBottom:5,
         fontSize:25,
+        marginHorizontal:wp('25%'),
         fontWeight:'bold',
         color:'#0F5E9C',
         

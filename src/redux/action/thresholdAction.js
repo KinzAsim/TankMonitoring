@@ -46,7 +46,7 @@ export const ThresholdLower = (threshold,type,id) =>  async (dispatch,getState) 
 
 
 export const ThresholdUpper = (upperThreshold,type,id) =>  async (dispatch,getState) => {
-    console.log('ThresholdUpper',upperThreshold,type,id)
+  //  console.log('ThresholdUpper',upperThreshold,type,id)
      const config = {
          headers: {
              'Content-type':'Application/json'

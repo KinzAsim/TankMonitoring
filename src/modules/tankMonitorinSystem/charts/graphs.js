@@ -1,7 +1,8 @@
 import React from 'react';
-import {View,StyleSheet} from 'react-native';
+import {View,StyleSheet,ScrollView} from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { LineChart, Grid, XAxis,BarChart,YAxis} from 'react-native-svg-charts'
+import { colors } from '../../../style';
+import {VictoryChart,VictoryGroup, VictoryBar, VictoryTheme} from 'victory-native';
 // import {
 //     LineChart,
 //     BarChart,
@@ -10,7 +11,8 @@ import { LineChart, Grid, XAxis,BarChart,YAxis} from 'react-native-svg-charts'
 //     ContributionGraph,
 //     StackedBarChart
 //   } from "react-native-chart-kit";
-  
+// import { LineChart, Grid, XAxis,BarChart,YAxis} from 'react-native-svg-charts'
+import {getCharts} from '../../../redux/action/tankAction';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { connect } from 'react-redux';
 
@@ -18,12 +20,13 @@ class graphScreen extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            ChartList: [
-                {label:'Module', value:'Tank Module 1'},
-              ],
+            moduleArray: [
+                {label:'Fill Level Module', value:'Fill Level module'}
+            
+            ],
             ChartType: [
-                  {label:'fillLevel',value:'fillLevel'},
-                  {label:'Motor',value:'fillLevel1'}
+                  {label:'FillLevel',value:'fillLevel'},
+                  {label:'Motor',value:'motor'}
 
               ],
             ChartRange: [
@@ -32,183 +35,160 @@ class graphScreen extends React.Component{
                 {label: 'Year Chart', value: 'year'},
               ],
               selectedModule:0,
-              selectedModuleValue: 'Tank Module 1',
+              selectedModuleValue: 'Fill Level module',
               selectedType: -1,
               selectedTypeValue: 'fillLevel',
               selectedRange: 0,
               selectedRangeValue: 'week',
-            //   selectedType: -1,
-            //   selectedTypeValue: 'Day',
               loading: true,
               Index:0,
              }  
         }
-            handleListChange = () => {
+
+            handleModuleChange = (item) => {
                 const{tank} = this.props;
+                const {selectedTypeValue,selectedModuleValue} = this.state;
+                const i = tank.findIndex(x => x.name === item.value);  
                 this.setState ({
-                    selectedModule:item.value,
-                    selectedModuleValue:item.value
-                })
+                    selectedModule:item.label,
+                    selectedModuleValue:item.value,
+                    Index:i
+                });
+               this.props.getCharts(selectedTypeValue,selectedModuleValue,tank[i]._id)
             }
 
+            handleTypeChange = (item) => {
+                const{tank} = this.props;
+                const{selectedModuleValue,selectedTypeValue}= this.state;
+                const i = tank.findIndex(x => x.name === selectedModuleValue);    
+                this.setState ({
+                    selectedType:item.title,
+                    selectedTypeValue:item.value,
+                });
+                this.props.getCharts(item.value,selectedModuleValue,tank[i]._id)
+            }
+            
+            handleRangeChange = (item) => {
+                const{tank} = this.props;
+                const{selectedModuleValue,selectedRangeValue}= this.state;
+                const i = tank.findIndex(x => x.name === selectedModuleValue);    
+                this.setState ({
+                    selectedRange:item.title,
+                    selectedRangeValue:item.value,
+                    Index:i
+                });
+                this.props.getCharts(item.value,selectedModuleValue,tank[i]._id)
+            }
+           
     render(){
-        const {ChartList,selectedModuleValue,ChartType,ChartRange,selectedRangeValue,selectedTypeValue}= this.state;
+        const {moduleArray,selectedModuleValue,ChartType,ChartRange,selectedRangeValue,selectedTypeValue,Index}= this.state;
         const{tank}= this.props;
-       // console.log('chart', tank)
+        //console.log('chart',tank)
 
-        const data = [50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80]
-        const y = [ 'january', 'feburary', 'march', 'april', 'may', 'june', 'jully', 'september', 'october', 'november', 'december']
-       // const data1 = [ 14, -1, 10, -95, -94, -24, -8, 85, -1, 35, -53, 53, -78, 66, 96, 33, -26, -32, 73, 8 ]
-        const data2 = [ 24, 28, 93, 77, -42, -62, 52, -87, 21, 53, -78, -62, -72, -6, 89, -70, -94, 10, 86, 84 ]   
-        const barData = [
-            // {
-            //     data: data1,
-            //     svg: {
-            //         stroke: 'rgb(134, 65, 244)',
-            //     },
-            // },
-            {
-                data: data2,
-                svg: {
-                    stroke: '#2389DA',
-                },
-            },
-        ]
-        // const colors = ['#8800cc', '#aa00ff', '#cc66ff', '#eeccff']
-        // const keys = ['apples', 'bananas', 'cherries', 'dates']
-        // const svgs = [
-        //     { onPress: () => console.log('apples') },
-        //     { onPress: () => console.log('bananas') },
-        //     { onPress: () => console.log('cherries') },
-        //     { onPress: () => console.log('dates') },
-        // ]
+        const data = [{ x: 1, y: 2 },
+                      { x: 2, y: 3 },
+                      { x: 3, y: 5 },
+                      { x: 4, y: 4 },
+                      { x: 5, y: 7 }]
+
         return(
             <View style={styles.container}bounces={true}>
-            <View style={{flexDirection:'row',marginHorizontal:hp('5%'), marginBottom:hp('10%')}}>
-                <DropDownPicker
-            items={ChartList}
-            style={{elevation:50}}
-            defaultValue={selectedModuleValue}
-            containerStyle={{
-                height:40, 
-                width:wp('26.3%'), 
-                paddingLeft:5,
-                marginTop:20,
-                borderColor:'#000',
-                borderRadius:5,
-                marginBottom:20}}
-            itemStyle={{
-                justifyContent:'flex-start',
-                borderRadius:5,
-                marginBottom:5,
-                width:wp('90%'),
-                paddingLeft:30
-            }}
-            dropDownStyle={{
-                backgroundColor:'#fff',
-                elevation:50}}
-            labelStyle={{
-                fontSize:15,
-                color:'#800080',
-                textAlign:'left'                   
-            }}
-            onChangeItem={item => this.handleListChange(item)}
-            ></DropDownPicker>
-               <DropDownPicker
-            items={ChartType}
-            style={{elevation:50}}
-            defaultValue={selectedTypeValue}
-            containerStyle={{
-                height:40, 
-                width:wp('26.3%'), 
-                paddingLeft:5,
-                marginTop:20,
-                borderColor:'#000',
-                borderRadius:5,
-                marginBottom:20}}
-            itemStyle={{
-                justifyContent:'flex-start',
-                borderRadius:5,
-                marginBottom:5,
-                width:wp('90%'),
-                paddingLeft:30
-            }}
-            dropDownStyle={{
-                backgroundColor:'#fff',
-                elevation:50}}
-            labelStyle={{
-                fontSize:14,
-                color:'#2389DA',
-                textAlign:'left'                   
-            }}
-           
-            ></DropDownPicker>
-               <DropDownPicker
-            items={ChartRange}
-            style={{elevation:50}}
-            defaultValue={selectedRangeValue}
-            containerStyle={{
-                height:40, 
-                width:wp('26.3%'), 
-                paddingLeft:5,
-                marginTop:20,
-                borderColor:'#000',
-                borderRadius:5,
-                marginBottom:20}}
-            itemStyle={{
-                justifyContent:'flex-start',
-                borderRadius:5,
-                marginBottom:5,
-                width:wp('90%'),
-                paddingLeft:30
-            }}
-            dropDownStyle={{
-                backgroundColor:'#fff',
-                elevation:50}}
-            labelStyle={{
-                fontSize:14,
-                color:'#800080',
-                textAlign:'left'                   
-            }}
-           
-            ></DropDownPicker>
-             </View>
-
-             <View style={{ height:hp('50%'), padding: 20, flexDirection: 'row', width:wp('100%') }}>
-                 <YAxis
-                    data={data}
-                    style={{ marginBottom: 30 }}
-                    contentInset={{top: 10, bottom: 10  }}
-                    svg={{
-                        fill: 'grey',
-                        fontSize: 10,
+              <View style={{borderRadius:8,width: wp('45%'),marginLeft:wp('5%')} }>
+            <DropDownPicker
+                      items={moduleArray}    
+                      zIndex={30}
+                      defaultValue={selectedModuleValue}
+                      containerStyle={{height: 50, width: wp('85%'),marginBottom:30,marginTop:30}}
+                      style={{backgroundColor: colors.secondary}}
+                      itemStyle={{
+                          justifyContent: 'flex-start',
+                          //backgroundColor: '#fff',
+                          borderRadius: 5,
+                          marginBottom: 5
+                      }}
+                      dropDownStyle={{backgroundColor: colors.secondary,elevation:20}}
+                      labelStyle={{
+                        fontSize: 14,
+                        textAlign: 'left',
+                        color: '#fff'
                     }}
-                    numberOfTicks={10}
-                    formatLabel={(value) => `${value}`}
-                />
-                 <View style={{ flex: 1, marginLeft: 10 }}>
-                 <LineChart
-                    style={{ flex: 1}}
-                    data={barData}
-                    gridMin={0}
-                    width = {wp('145%')}
-                    contentInset={{ top: 10, bottom: 10, color:'rgb(134, 65, 244)'  }}
-                    svg={{ stroke: 'rgb(134, 65, 244)', strokeWidth:'3'}}
-                 >
-                    <Grid />
-                </LineChart>
-                <XAxis
-                    style={{marginHorizontal: -10, height:30}}
-                    data={data}                   
-                    contentInset={{ left: 10, right: 10 }}
-                    svg={{ fontSize: 15, fill: '#800080'}}
-                />
-                 </View>         
-            </View>
-            </View>            
+                    arrowStyle={{marginRight: 10,backgroundColor:colors.whiteOne,borderRadius:10}}
+                    onChangeItem={item => this.handleModuleChange(item)}
+                  />
+             </View>
+         <View style={{borderRadius:8,width: wp('45%'), marginLeft:wp('5%')}}>
+            <DropDownPicker
+                      items={ChartType}
+                      zIndex={15}               
+                      defaultValue={selectedTypeValue}
+                      containerStyle={{height: 50, width: wp('85%'),marginBottom:50,marginTop:5}}
+                      style={{backgroundColor: colors.secondary}}
+                      itemStyle={{
+                          //justifyContent: 'flex-start',
+                          //backgroundColor: '#fff',
+                          borderRadius: 5,
+                          marginBottom: 5
+                      }}
+                      dropDownStyle={{backgroundColor: colors.secondary}}
+                      labelStyle={{
+                        fontSize: 14,
+                        textAlign: 'left',
+                        color: '#fff'
+                    }}
+                    arrowStyle={{marginRight: 10,backgroundColor:colors.whiteOne,borderRadius:10}}
+                    onChangeItem={item => this.handleTypeChange(item)}
+                  />
+           </View >
+           <View style={{borderRadius:8,width: wp('45%'), marginLeft:wp('5%')}}>
+            <DropDownPicker
+                      items={ChartRange}
+                      zIndex={10}           
+                      defaultValue={selectedRangeValue}
+                      containerStyle={{height: 50, width: wp('85%'),marginBottom:70,marginTop:5}}
+                      style={{backgroundColor: colors.secondary}}
+                      itemStyle={{
+                          //justifyContent: 'flex-start',
+                          //backgroundColor: '#fff',
+                          borderRadius: 5,
+                          marginBottom: 5
+                      }}
+                      dropDownStyle={{backgroundColor: colors.secondary,elevation:15}}
+                      labelStyle={{
+                        fontSize: 14,
+                        textAlign: 'left',
+                        color: '#fff'
+                    }}
+                    arrowStyle={{marginRight: 10,backgroundColor:colors.whiteOne,borderRadius:10}}
+                    onChangeItem={item => this.handleRangeChange(item)}
+                  />
+           </View >
+
+              <ScrollView horizontal={true} style={styles.chartView} >
+                  <VictoryChart   theme={VictoryTheme.material}>
+                  <VictoryGroup offset={20}
+                        colorScale={"blue"}
+                        animate={{
+                            duration: 2000,
+                            onLoad: { duration: 1000 }
+                          }}>                      
+                    <VictoryBar
+                        data={[{ x: 1, y: 1 }, { x: 2, y: 2 }, { x: 3, y: 5 }]}
+                        />
+                    <VictoryBar
+                        data={[{ x: 1, y: 2 }, { x: 2, y: 1 }, { x: 3, y: 7 }]}
+                        />
+                    <VictoryBar
+                        data={[{ x: 1, y: 3 }, { x: 2, y: 4 }, { x: 3, y: 9 }]}
+                        />
+                    </VictoryGroup>
+                  </VictoryChart>
+            </ScrollView>
+               
+            </View>    
         );
     }
 }
+
 const mapStateToProps = (state) => ({
     //state.reducer.variable
     user:state.auth.user,
@@ -217,13 +197,25 @@ const mapStateToProps = (state) => ({
 })
 
 
-export default connect(mapStateToProps,null)(graphScreen);
+export default connect(mapStateToProps,{getCharts})(graphScreen);
+
 const styles = StyleSheet.create({
+    containerStyle: {
+        justifyContent:'center'
+    },
     container: {
-        justifyContent:'center',
+        // alignItems: 'center',
+        // flexDirection: 'row',
+        // marginBottom: hp('1.5%'),
+        // marginTop: hp('1.5%'),
       
     },
     dropContainer: {
         flex:1
-    }
+    },
+    chartView: {
+        marginTop: hp('-2%'),
+        backgroundColor: '#fff',
+      },
+      AxisLabel:{fontSize: hp('5%'), padding: wp('10%')},
 })

@@ -59,3 +59,45 @@ export const updateSensors = (data)=> (dispatch,getState) => {
 }
 
 
+export const forceMotor = (motor,id) => async (dispatch,getState) => {
+    console.log('sensor data',motor,id)
+    const config = {
+        headers: {
+            'Content-type':'Application/json'
+        }
+    }
+    const body = {
+        motor,
+        id,
+    };
+    try{
+        const data = await axios.post(`${url}/rs/forceMotor`,body,config)
+     //   console.log('motor data',data.data)
+    }
+    catch(err) {
+        console.log(err)
+    }
+}
+
+
+
+export const getCharts = (type,range,id) => (dispatch,getState) => {
+    console.log('Chart action',type,range,id)
+
+    const config = {
+        headers: {
+            'Content-type':'Application/json'
+        }
+    }
+    // try{
+    //     const data = await axios.get(`${url}/rs/charts/${type}/${range}/${id}`,config)
+    //     console.log('charts',data.data)
+    //     // dispatch({
+    //     //     type: 'GET_CHARTS',
+    //     //     payload: data.data
+    //     // })
+    // }
+    // catch(err){
+    //      console.log(err)
+    // }
+}

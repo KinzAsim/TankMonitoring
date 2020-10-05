@@ -75,7 +75,7 @@ class LogsScreen extends React.Component {
      done = await this.props.getSensors(user.id);
     
     if (done === 'done'){
-      console.log('action working');  
+     // console.log('action working');  
     }
 
     await this.props.getLogs(selectedTypeValue,tank[Index]._id,startDate,endDate);    

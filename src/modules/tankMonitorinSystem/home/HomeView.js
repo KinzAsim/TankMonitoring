@@ -9,7 +9,7 @@ import  Svg, {Circle}  from 'react-native-svg';
 import Icon4 from 'react-native-vector-icons/AntDesign';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {connect} from 'react-redux';
-import {getSensors} from '../../../redux/action/tankAction';
+import {getSensors,forceMotor} from '../../../redux/action/tankAction';
 //import AnimatedWave from "react-native-animated-wave";
 
 
@@ -32,7 +32,8 @@ import {getSensors} from '../../../redux/action/tankAction';
          isDialogVisible2: false,
          sensorIndex: null,
          Index:2,
-         country: 'tank'
+         country: 'tank',
+        //  motor:1
         }
     }
     
@@ -52,6 +53,20 @@ import {getSensors} from '../../../redux/action/tankAction';
             Index:i
             })
     }
+       controlMotor = () => {
+            const {tank} = this.props;
+            // console.log('motor',tank);
+            const{selectedModuleValue}= this.state;
+            const m = tank.findIndex(x => x.name === selectedModuleValue)
+        console.log('motor status',tank[m].motor)
+        if(tank[m].motor === 1){
+             this.props.forceMotor(0,tank[m]._id);
+        }
+        else if(tank[m].motor === 0){
+            this.props.forceMotor(1,tank[m]._id);
+        }
+       }
+
     render(){
         const {Modules,selectedModuleValue,Index} = this.state;
         const {user,state,tank,sensorLoading} = this.props; 
@@ -108,7 +123,7 @@ import {getSensors} from '../../../redux/action/tankAction';
                     onChangeItem={item => this.handleChange(item)}
                     ></DropDownPicker>
                     
-{/*                    
+                  {/*                    
                     <View style={styles.drop}>
                        
                        <Icon1 name="cup-water" size={90}color="#0F5E9C"width="100" height="100"/> */}
@@ -165,21 +180,20 @@ import {getSensors} from '../../../redux/action/tankAction';
             {/* </View> */}
         
                     <Card
-                    containerStyle={[styles.cardMainContainer1,{backgroundColor:'#fff',borderColor:'#fff', elevation:80,marginHorizontal:100, borderRadius:28}]}>
+                    containerStyle={[styles.cardMainContainer1,{backgroundColor:'#fff',borderColor:'#fff', elevation:80,marginHorizontal:wp('25%'), borderRadius:28}]}>
                         <Card.Title style={styles.cardTitle1}>MOTOR STATUS</Card.Title>
                     <View style={{justifyContent:'center', marginTop:30, alignItems:'center',}}>
+                    <TouchableOpacity onPress={() => this.controlMotor()}>
                         <View style={styles.IconView1}>
                         <Icon4 name="poweroff" size={30} color="#0F5E9C"/>
                         </View>
-                    <TouchableOpacity>
+                        </TouchableOpacity>
                     {tank[Index].motor === 1 ?
                      (
                       <Text style={styles.text1}>ON</Text>) :
                          (
                       <Text style={styles.text1}>OFF</Text>
-                        )}
-                    </TouchableOpacity>
-                       
+                        )}                       
                     </View>                
                     </Card>
     
@@ -212,7 +226,7 @@ import {getSensors} from '../../../redux/action/tankAction';
         })
 
 
-export default connect(mapStateToProps,{getSensors})(HomeScreen);
+export default connect(mapStateToProps,{getSensors,forceMotor})(HomeScreen);
 
 //#05386B,#EDF5E1,D9B08C
 const styles = StyleSheet.create({
@@ -231,7 +245,7 @@ const styles = StyleSheet.create({
     },
     cardMainContainer1: {
         width:wp('50%'),       
-        height:hp('50%'),
+        height:hp('33%'),
         borderWidth: 1,
         elevation:60,
         shadowRadius:60, 

@@ -81,23 +81,25 @@ export const forceMotor = (motor,id) => async (dispatch,getState) => {
 
 
 
-export const getCharts = (type,range,id) => (dispatch,getState) => {
-    console.log('Chart action',type,range,id)
-
+export const getCharts = (chartType,chartRange,id) => async (dispatch,getState) => {
+  //  console.log('Chart action',chartType,chartRange,id)
+    dispatch({
+        type: 'CHARTS_LOADING'
+    })
     const config = {
         headers: {
             'Content-type':'Application/json'
         }
     }
-    // try{
-    //     const data = await axios.get(`${url}/rs/charts/${type}/${range}/${id}`,config)
-    //     console.log('charts',data.data)
-    //     // dispatch({
-    //     //     type: 'GET_CHARTS',
-    //     //     payload: data.data
-    //     // })
-    // }
-    // catch(err){
-    //      console.log(err)
-    // }
+    try{
+        const data = await axios.get(`${url}/rs/chart/${chartType}/${chartRange}/${id}`, config)
+        console.log('charts',data.data)
+        // dispatch({
+        //     type: 'GET_CHARTS',
+        //     payload: data.data
+        // })
+    }
+    catch(err){
+         console.log(err)
+    }
 }

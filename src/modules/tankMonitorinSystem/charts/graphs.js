@@ -47,43 +47,43 @@ class graphScreen extends React.Component{
 
             handleModuleChange = (item) => {
                 const{tank} = this.props;
-                const {selectedTypeValue,selectedModuleValue} = this.state;
+                const {selectedTypeValue,selectedRangeValue} = this.state;
                 const i = tank.findIndex(x => x.name === item.value);  
                 this.setState ({
                     selectedModule:item.label,
                     selectedModuleValue:item.value,
                     Index:i
                 });
-               this.props.getCharts(selectedTypeValue,selectedModuleValue,tank[i]._id)
+               this.props.getCharts(selectedTypeValue,selectedRangeValue,tank[i]._id)
             }
 
             handleTypeChange = (item) => {
                 const{tank} = this.props;
-                const{selectedModuleValue,selectedTypeValue}= this.state;
+                const{selectedModuleValue,selectedRangeValue}= this.state;
                 const i = tank.findIndex(x => x.name === selectedModuleValue);    
                 this.setState ({
                     selectedType:item.title,
                     selectedTypeValue:item.value,
                 });
-                this.props.getCharts(item.value,selectedModuleValue,tank[i]._id)
+                this.props.getCharts(item.value,selectedRangeValue,tank[i]._id)
             }
             
             handleRangeChange = (item) => {
                 const{tank} = this.props;
-                const{selectedModuleValue,selectedRangeValue}= this.state;
+                const{selectedModuleValue,selectedRangeValue,selectedTypeValue}= this.state;
                 const i = tank.findIndex(x => x.name === selectedModuleValue);    
                 this.setState ({
                     selectedRange:item.title,
                     selectedRangeValue:item.value,
                     Index:i
                 });
-                this.props.getCharts(item.value,selectedModuleValue,tank[i]._id)
+                this.props.getCharts(selectedTypeValue,item.value,tank[i]._id)
             }
            
     render(){
         const {moduleArray,selectedModuleValue,ChartType,ChartRange,selectedRangeValue,selectedTypeValue,Index}= this.state;
-        const{tank}= this.props;
-        //console.log('chart',tank)
+        const{tank,charts}= this.props;
+      //  console.log('chart',charts)
 
         const data = [{ x: 1, y: 2 },
                       { x: 2, y: 3 },
@@ -93,7 +93,7 @@ class graphScreen extends React.Component{
 
         return(
             <View style={styles.container}bounces={true}>
-              <View style={{borderRadius:8,width: wp('45%'),marginLeft:wp('5%')} }>
+              <View style={styles.containerView}>
             <DropDownPicker
                       items={moduleArray}    
                       zIndex={30}
@@ -116,12 +116,12 @@ class graphScreen extends React.Component{
                     onChangeItem={item => this.handleModuleChange(item)}
                   />
              </View>
-         <View style={{borderRadius:8,width: wp('45%'), marginLeft:wp('5%')}}>
+         <View style={{borderRadius:8,width: wp('45%'),flexDirection:'row',marginLeft:wp('5%'),marginBottom:70,}}>
             <DropDownPicker
                       items={ChartType}
                       zIndex={15}               
                       defaultValue={selectedTypeValue}
-                      containerStyle={{height: 50, width: wp('85%'),marginBottom:50,marginTop:5}}
+                      containerStyle={{height: 50, width: wp('45%'),marginTop:5}}
                       style={{backgroundColor: colors.secondary}}
                       itemStyle={{
                           //justifyContent: 'flex-start',
@@ -138,13 +138,12 @@ class graphScreen extends React.Component{
                     arrowStyle={{marginRight: 10,backgroundColor:colors.whiteOne,borderRadius:10}}
                     onChangeItem={item => this.handleTypeChange(item)}
                   />
-           </View >
-           <View style={{borderRadius:8,width: wp('45%'), marginLeft:wp('5%')}}>
+          
             <DropDownPicker
                       items={ChartRange}
                       zIndex={10}           
                       defaultValue={selectedRangeValue}
-                      containerStyle={{height: 50, width: wp('85%'),marginBottom:70,marginTop:5}}
+                      containerStyle={{height: 50, width: wp('45%'),marginBottom:70,marginTop:5}}
                       style={{backgroundColor: colors.secondary}}
                       itemStyle={{
                           //justifyContent: 'flex-start',
@@ -193,7 +192,9 @@ const mapStateToProps = (state) => ({
     //state.reducer.variable
     user:state.auth.user,
     state:state,
-    tank:state.tank.sensors
+    tank:state.tank.sensors,
+    charts:state.tank.charts,
+   // chartLoading:state.tank.chartsLoading
 })
 
 
@@ -210,10 +211,15 @@ const styles = StyleSheet.create({
         // marginTop: hp('1.5%'),
       
     },
-    dropContainer: {
+    containerView: {
+        borderRadius:8,width: wp('100%'),marginHorizontal:wp('5.5%'),justifyContent:'center', marginTop: hp('1.5%'),
+    ...(Platform.OS !== 'android' && {
+      zIndex: 10})
+    },
+    dropContainer:{
         flex:1
     },
-    chartView: {
+    chartView:{
         marginTop: hp('-2%'),
         backgroundColor: '#fff',
       },

@@ -7,6 +7,8 @@ import AuthLoadingScreen from '../modules/auth/AuthLoadingScreen';
 import NotificationIcon from './notificationIcon';
 import NotificationView from '../modules/notification/notificationView';
 import NotificationPusher from './notificationpusher';
+import ProfileIcon from './profileIcon';
+import ProfileScreen from '../modules/profile/ProfileView';
 
 
 const Auth_Stack = createStackNavigator({
@@ -32,6 +34,9 @@ const App_Stack = createStackNavigator({
     notification: {
         screen: NotificationView
     },
+    profile: {
+        screen: ProfileScreen
+    },
     },
     {
         defaultNavigationOptions: ({navigation}) =>({
@@ -48,7 +53,8 @@ const App_Stack = createStackNavigator({
             backgroundColor:'#fff',   
         }, 
                 
-        headerRight:()=>  <NotificationIcon navigationProps={navigation}/>        
+        headerRight:()=>  <NotificationIcon navigationProps={navigation}/>,
+        headerLeft:()=>  <ProfileIcon navigationProps={navigation}/>         
       
         }),
     },

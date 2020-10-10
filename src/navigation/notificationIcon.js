@@ -18,7 +18,7 @@ render(){
     return(
         <View style={{flexDirection:'row', marginRight:wp('10%')}}>
             <TouchableOpacity onPress={()=>navigationProps.navigate('notification')}>
-                <Icon name="notifications" size={30} style={{color:'#0F5E9C'}}></Icon>
+                <Icon name="notifications" size={25} style={{color:'#0F5E9C'}}></Icon>
             </TouchableOpacity>
         </View>
     );

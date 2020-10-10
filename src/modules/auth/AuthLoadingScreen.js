@@ -5,9 +5,11 @@ import {loadUser} from '../../redux/action/authAction';
 import {connect} from 'react-redux';
 
 class AuthLoadingScreen extends React.Component {
+
   componentDidMount(){
     this.submitAsync();
   }
+
   componentDidUpdate(prevProps){
     if(this.props !== prevProps){
         const{isAuthenticated} = this.props;

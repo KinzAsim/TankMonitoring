@@ -15,7 +15,9 @@ const NotificationReducer = (state = initState, action) => {
             }
         case 'Clear_notification': 
         return{
-            ...state
+            ...state,
+            notifications : [],
+            count : 0
         }
         default : 
             return state;    

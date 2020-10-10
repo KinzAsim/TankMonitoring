@@ -90,8 +90,8 @@ export default createBottomTabNavigator(
         backgroundColor:'#fff'
       },
       labelStyle: {
-        color: '#2389DA',
-        shadowColor:'#000',
+        color: '#800080',
+        shadowColor:'#800080',
         elevation:60
       },
     },
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     height: 23,
   },
   tabBarIconFocused: {
-    tintColor: '#2389DA',
+    tintColor: '#800080',
   },
   headerContainer: {
     height: 70,

@@ -23,8 +23,8 @@ render(){
             </View>
             <Card containerStyle={styles.card}>
                 <View style={{alignItems:'center'}}> 
-                    <Text style={styles.headingText}>Partner</Text>
-                    <Text style={styles.text}>partner@demo.com</Text>
+                    <Text style={styles.headingText}>Rubitrons</Text>
+                    <Text style={styles.text}>rubitrons@demo.com</Text>
                 </View>
                 <View style={{alignItems:'center',marginTop:hp('10%')}}>
                     <TouchableOpacity style={styles.btn} onPress={()=>console.log('change password')}>

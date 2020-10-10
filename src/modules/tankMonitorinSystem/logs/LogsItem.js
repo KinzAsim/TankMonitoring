@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: fonts.primaryRegular,
     fontSize: hp('1.8%'),
-    color: '#000',
+    color: '#fff',
     fontWeight: 'bold'
   }
 });

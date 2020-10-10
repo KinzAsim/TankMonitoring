@@ -2,7 +2,8 @@ const initState = {
     sensorLoading:false,
     sensors:[],
     chartsLoading:false,
-    charts:[]
+    charts:[],
+    highest:1
 };
 
 const tankReducer = (state = initState, action) => {
@@ -122,16 +123,17 @@ const tankReducer = (state = initState, action) => {
                             count : 0
                         }
                     case 'CHARTS_LOADING':
-                        console.log('In Reducer', action.payload)
                         return {
                             ...state,
                             chartsLoading:true
                         }
                     case 'GET_CHARTS':
+                       // console.log('reducer',action.payload)
                         return {
                             ...state,
-                            chartsLoading:false,
-                            charts:action.payload.data
+                            charts:action.payload,
+                            chartsLoading:false,                            
+                            highest:action.highest
                         }
         
         default: 

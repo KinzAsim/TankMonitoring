@@ -180,7 +180,7 @@ import {getSensors,forceMotor} from '../../../redux/action/tankAction';
             {/* </View> */}
         
                     <Card
-                    containerStyle={[styles.cardMainContainer1,{backgroundColor:'#fff',borderColor:'#fff', elevation:80,marginHorizontal:wp('25%'), borderRadius:28}]}>
+                    containerStyle={[styles.cardMainContainer1,{backgroundColor:'#fff',borderColor:'#fff', elevation:120,marginHorizontal:wp('25%'), borderRadius:28}]}>
                         <Card.Title style={styles.cardTitle1}>MOTOR STATUS</Card.Title>
                     <View style={{justifyContent:'center', marginTop:30, alignItems:'center',}}>
                     <TouchableOpacity onPress={() => this.controlMotor()}>
@@ -247,7 +247,6 @@ const styles = StyleSheet.create({
         width:wp('50%'),       
         height:hp('33%'),
         borderWidth: 1,
-        elevation:60,
         shadowRadius:60, 
          
     },

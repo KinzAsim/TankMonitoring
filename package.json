@@ -24,6 +24,7 @@
     "pusher-js": "^7.0.0",
     "react": "16.13.1",
     "react-native": "^0.63.2",
+    "react-native-action-button": "^2.8.5",
     "react-native-animated-wave": "^1.2.3",
     "react-native-chart-kit": "^6.6.1",
     "react-native-datepicker": "^1.7.2",

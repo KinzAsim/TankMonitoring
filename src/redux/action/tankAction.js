@@ -60,7 +60,7 @@ export const updateSensors = (data)=> (dispatch,getState) => {
 
 
 export const forceMotor = (motor,id) => async (dispatch,getState) => {
-    console.log('sensor data',motor,id)
+  //  console.log('sensor data',motor,id)
     const config = {
         headers: {
             'Content-type':'Application/json'
@@ -93,11 +93,42 @@ export const getCharts = (chartType,chartRange,id) => async (dispatch,getState) 
     }
     try{
         const data = await axios.get(`${url}/rs/chart/${chartType}/${chartRange}/${id}`, config)
-        console.log('charts',data.data)
-        // dispatch({
-        //     type: 'GET_CHARTS',
-        //     payload: data.data
-        // })
+        console.log('action', data.data)
+        console.log('type',chartType)
+        let array=[]
+        let highest = 1
+
+      if(chartType === 'motor' || chartType === 'force-motor' ) {
+        data.data.labels.map((d,index) => {
+          if(data.data.data[index] > highest){
+            highest = data.data.data[index];
+          }
+       // console.log('labels',data.data.labels)
+          let obj = {
+            x: d,
+            y: data.data.data[index]
+          }
+          array.push(obj)
+          //console.log('charts',array)
+        })
+      }
+      else if(chartType === 'fillLevel' || chartType === 'fillLevel1') {
+        data.data.labels.map((d,index) => {
+          if(data.data.data[index] > highest){
+            highest = data.data.data[index];
+          }
+          let obj = {
+            x: d,
+            y: data.data.data[index],
+          }
+          array.push(obj)
+        })
+      }    
+        dispatch({
+            type: 'GET_CHARTS',
+            payload: array,
+            highest: highest
+        })
     }
     catch(err){
          console.log(err)

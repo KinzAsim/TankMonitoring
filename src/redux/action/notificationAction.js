@@ -11,7 +11,7 @@ export const addNotification = (data) => async(dispatch,getState) => {
 
 
 
-export const NotificationAction = () => async (dispatch, getState) => {
+export const ClearNotification = () => async (dispatch, getState) => {
     dispatch({
         type:'Clear_notification'
     })

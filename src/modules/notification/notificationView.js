@@ -1,9 +1,10 @@
 import React from 'react';
-import {View, Text, StyleSheet, Button} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import Item from './notificationItem';
 import {connect} from 'react-redux';
-import { addNotification } from '../../redux/action/notificationAction';
+import { ClearNotification } from '../../redux/action/notificationAction';
+import ActionButton  from 'react-native-action-button';
 
 
 
@@ -35,13 +36,13 @@ constructor(props){
             }
 
             clear = () => {
-                console.log('clear')
-              //  this.props.clear();   
+                // console.log('clear')
+                this.props.ClearNotification();   
             }  
 
             render(){
             const {notifications} = this.props;
-            console.log('view noooooo', notifications)
+          //  console.log('view noooooo', notifications)
 
    // const{DATA} = this.state;
 
@@ -64,13 +65,16 @@ constructor(props){
                 </View>
                 )}
            
-           <View style={styles.btn}>
-           <Button style={styles.btn}
-                  title="CLEAR"              
-                  onPress={this.clear}>                  
-                </Button>
-           </View>               
+          
+           <ActionButton 
+           buttonColor="#800080" 
+           style={styles.btn}
+           buttonText="CLEAR"
+           buttonTextStyle={{fontSize:10}}
+           onPress={this.clear}>               
+            </ActionButton>            
             </View>
+           
         );
     }
 }
@@ -81,17 +85,15 @@ constructor(props){
     });
 
 
-export default connect(mapStateToProps,null)(NotificationView);
+export default connect(mapStateToProps,{ClearNotification})(NotificationView);
 
 const styles = StyleSheet.create({
-    container:{
+    container:{flex:1,
        backgroundColor:'#fff'
     },
     btn: {  
-        marginTop:730,  
         flexDirection: 'row',
-        justifyContent: 'flex-end',
-        marginVertical: 16,
+        justifyContent: 'flex-end'
 
     },
  

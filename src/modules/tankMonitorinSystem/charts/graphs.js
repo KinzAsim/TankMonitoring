@@ -1,8 +1,8 @@
 import React from 'react';
-import {View,StyleSheet,ScrollView} from 'react-native';
+import {View,StyleSheet,ScrollView,Text} from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { colors } from '../../../style';
-import {VictoryChart,VictoryGroup, VictoryBar, VictoryTheme} from 'victory-native';
+import {VictoryChart,VictoryGroup, VictoryBar, VictoryTheme, VictoryLine} from 'victory-native';
 // import {
 //     LineChart,
 //     BarChart,
@@ -26,7 +26,9 @@ class graphScreen extends React.Component{
             ],
             ChartType: [
                   {label:'FillLevel',value:'fillLevel'},
-                  {label:'Motor',value:'motor'}
+                  {label:'FillLevel1',value:'fillLevel1'},
+                  {label:'Motor',value:'motor'},
+                  {label:'Force-Motor',value:'force-motor'}
 
               ],
             ChartRange: [
@@ -82,15 +84,25 @@ class graphScreen extends React.Component{
            
     render(){
         const {moduleArray,selectedModuleValue,ChartType,ChartRange,selectedRangeValue,selectedTypeValue,Index}= this.state;
-        const{tank,charts}= this.props;
-      //  console.log('chart',charts)
+        const{tank,charts,chartLoading,highest}= this.props;
+       // console.log('chart',charts)
 
         const data = [{ x: 1, y: 2 },
                       { x: 2, y: 3 },
                       { x: 3, y: 5 },
                       { x: 4, y: 4 },
                       { x: 5, y: 7 }]
-
+        let width = null; 
+    
+        if(selectedRangeValue === 'week'){
+            width = wp('150%')
+        }
+        else if(selectedRangeValue === 'month'){
+            width = wp('430%')
+        }
+        else if(selectedRangeValue === 'year'){
+            width = wp('200%')
+        }
         return(
             <View style={styles.container}bounces={true}>
               <View style={styles.containerView}>
@@ -98,7 +110,7 @@ class graphScreen extends React.Component{
                       items={moduleArray}    
                       zIndex={30}
                       defaultValue={selectedModuleValue}
-                      containerStyle={{height: 50, width: wp('85%'),marginBottom:30,marginTop:30}}
+                      containerStyle={{height: 50, width: wp('85%'),marginBottom:30,marginTop:10}}
                       style={{backgroundColor: colors.secondary}}
                       itemStyle={{
                           justifyContent: 'flex-start',
@@ -116,7 +128,7 @@ class graphScreen extends React.Component{
                     onChangeItem={item => this.handleModuleChange(item)}
                   />
              </View>
-         <View style={{borderRadius:8,width: wp('45%'),flexDirection:'row',marginLeft:wp('5%'),marginBottom:70,}}>
+         <View style={{borderRadius:8,width: wp('45%'),flexDirection:'row',marginLeft:wp('5%'),marginBottom:90,}}>
             <DropDownPicker
                       items={ChartType}
                       zIndex={15}               
@@ -162,28 +174,68 @@ class graphScreen extends React.Component{
                   />
            </View >
 
-              <ScrollView horizontal={true} style={styles.chartView} >
-                  <VictoryChart   theme={VictoryTheme.material}>
-                  <VictoryGroup offset={20}
-                        colorScale={"blue"}
-                        animate={{
-                            duration: 2000,
-                            onLoad: { duration: 1000 }
-                          }}>                      
+
+            {chartLoading ? (
+                        <View style={{flex:1, alignItems:'center',justifyContent:'center',backgroundColor:'black'}}>
+                        <ActivityIndicator size="large" color="#fff"/>
+                       </View>
+                    ):(  
+            <ScrollView style={styles.container}>
+            { ChartType === 'motor' || ChartType === 'force-motor' ? (
+                <ScrollView horizontal={true} style={styles.chartView} >
+               <VictoryChart   theme={VictoryTheme.material} domain={{y: [0, highest]}}  width={width} height={hp('50%')} >
+               <VictoryGroup offset={20}
+                     colorScale={"blue"}
+                     animate={{
+                         duration: 2000,
+                         onLoad: { duration: 1000 }
+                       }}
+                      >  
                     <VictoryBar
-                        data={[{ x: 1, y: 1 }, { x: 2, y: 2 }, { x: 3, y: 5 }]}
-                        />
+                     data={charts}
+                     />
+                    {/* <VictoryLine
+                     data={charts}/> */}
+                 {/* }(
+                    
+                 ): (
+                     {ChartType === 'fillLevel' || ChartType === 'fillLevel1'}
+                     
+                 )*/}                   
+                 </VictoryGroup>
+               </VictoryChart>
+           </ScrollView>
+                    ):(
+             <ScrollView style={styles.container}>
+            { ChartType === 'motor' || ChartType === 'force-motor' ? (
+                <ScrollView horizontal={true} style={styles.chartView} >
+               <VictoryChart   theme={VictoryTheme.material} domain={{y: [0, highest]}}  width={width} height={hp('50%')} >
+               <VictoryGroup offset={20}
+                     colorScale={"blue"}
+                     animate={{
+                         duration: 2000,
+                         onLoad: { duration: 1000 }
+                       }}
+                      >  
                     <VictoryBar
-                        data={[{ x: 1, y: 2 }, { x: 2, y: 1 }, { x: 3, y: 7 }]}
-                        />
-                    <VictoryBar
-                        data={[{ x: 1, y: 3 }, { x: 2, y: 4 }, { x: 3, y: 9 }]}
-                        />
-                    </VictoryGroup>
-                  </VictoryChart>
+                     data={charts}
+                     />
+                    {/* <VictoryLine
+                     data={charts}/> */}
+                 {/* }(
+                    
+                 ): (
+                     {ChartType === 'fillLevel' || ChartType === 'fillLevel1'}
+                     
+                 )*/}                   
+                 </VictoryGroup>
+               </VictoryChart>
+           </ScrollView>
+                    )
+                    )
+                    
             </ScrollView>
-               
-            </View>    
+            </View>  
         );
     }
 }
@@ -194,7 +246,8 @@ const mapStateToProps = (state) => ({
     state:state,
     tank:state.tank.sensors,
     charts:state.tank.charts,
-   // chartLoading:state.tank.chartsLoading
+    chartLoading:state.tank.chartsLoading,
+    highest: state.tank.highest,
 })
 
 
@@ -205,10 +258,8 @@ const styles = StyleSheet.create({
         justifyContent:'center'
     },
     container: {
-        // alignItems: 'center',
-        // flexDirection: 'row',
-        // marginBottom: hp('1.5%'),
-        // marginTop: hp('1.5%'),
+       flex:1,
+       backgroundColor:"#fff"
       
     },
     containerView: {

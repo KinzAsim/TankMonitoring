@@ -31,10 +31,10 @@ async componentDidMount() {
    //console.log('id', user.id)
 
     channel = pusher.subscribe(`${user.id}`);
-    //console.log('channel',channel)
+    // console.log('channel',channel)
 
     channel.bind ('update',function(data) {   
-        //console.log('pusher', data)     
+        console.log('pusher', data)     
         updateSensors(data);
     },
    

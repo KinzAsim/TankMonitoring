@@ -1,5 +1,5 @@
 import React from 'react';
-import {View,StyleSheet,ScrollView,Text} from 'react-native';
+import {View,StyleSheet,ScrollView,Text,ActivityIndicator} from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { colors } from '../../../style';
 import {VictoryChart,VictoryGroup, VictoryBar, VictoryTheme, VictoryLine} from 'victory-native';
@@ -174,68 +174,40 @@ class graphScreen extends React.Component{
                   />
            </View >
 
-
-            {chartLoading ? (
-                        <View style={{flex:1, alignItems:'center',justifyContent:'center',backgroundColor:'black'}}>
-                        <ActivityIndicator size="large" color="#fff"/>
-                       </View>
-                    ):(  
-            <ScrollView style={styles.container}>
-            { ChartType === 'motor' || ChartType === 'force-motor' ? (
-                <ScrollView horizontal={true} style={styles.chartView} >
-               <VictoryChart   theme={VictoryTheme.material} domain={{y: [0, highest]}}  width={width} height={hp('50%')} >
-               <VictoryGroup offset={20}
-                     colorScale={"blue"}
-                     animate={{
-                         duration: 2000,
-                         onLoad: { duration: 1000 }
-                       }}
-                      >  
-                    <VictoryBar
-                     data={charts}
-                     />
-                    {/* <VictoryLine
-                     data={charts}/> */}
-                 {/* }(
-                    
-                 ): (
-                     {ChartType === 'fillLevel' || ChartType === 'fillLevel1'}
-                     
-                 )*/}                   
-                 </VictoryGroup>
-               </VictoryChart>
-           </ScrollView>
-                    ):(
-             <ScrollView style={styles.container}>
-            { ChartType === 'motor' || ChartType === 'force-motor' ? (
-                <ScrollView horizontal={true} style={styles.chartView} >
-               <VictoryChart   theme={VictoryTheme.material} domain={{y: [0, highest]}}  width={width} height={hp('50%')} >
-               <VictoryGroup offset={20}
-                     colorScale={"blue"}
-                     animate={{
-                         duration: 2000,
-                         onLoad: { duration: 1000 }
-                       }}
-                      >  
-                    <VictoryBar
-                     data={charts}
-                     />
-                    {/* <VictoryLine
-                     data={charts}/> */}
-                 {/* }(
-                    
-                 ): (
-                     {ChartType === 'fillLevel' || ChartType === 'fillLevel1'}
-                     
-                 )*/}                   
-                 </VictoryGroup>
-               </VictoryChart>
-           </ScrollView>
-                    )
-                    )
-                    
+           {chartLoading ? (
+                <View style={{flex:1, alignItems:'center',justifyContent:'center',backgroundColor:'white'}}>
+                    <ActivityIndicator size="large" color="#000"/>
+                </View>
+           ):(
+            <ScrollView horizontal={true} style={styles.chartView}>
+                 {selectedTypeValue === 'motor' || selectedTypeValue === 'force-motor' ? (
+                     <VictoryChart theme={VictoryTheme.material} domain={{y: [0, highest]}}  width={width} height={hp('50%')}>
+                     <VictoryGroup  offset={20}
+                colorScale={"blue"}
+                animate={{
+                    duration: 2000,
+                    onLoad: { duration: 1000 }
+                  }}>
+                       <VictoryBar
+                       data={charts}/>
+                     </VictoryGroup>
+                 </VictoryChart>
+                 ) : selectedTypeValue === 'fillLevel' || selectedTypeValue === 'fillLevel1' ? (
+                    <VictoryChart theme={VictoryTheme.material} domain={{y: [0, highest]}}  width={width} height={hp('50%')}>
+                    <VictoryGroup  offset={20}
+                  colorScale={"blue"}
+                  animate={{
+                      duration: 2000,
+                      onLoad: { duration: 1000 }
+                    }}>
+                      <VictoryLine
+                      data={charts}/>
+                    </VictoryGroup>
+                </VictoryChart>
+                 ) : (null)}
             </ScrollView>
-            </View>  
+           )}
+        </View>    
         );
     }
 }
@@ -258,8 +230,10 @@ const styles = StyleSheet.create({
         justifyContent:'center'
     },
     container: {
-       flex:1,
-       backgroundColor:"#fff"
+        // alignItems: 'center',
+        // flexDirection: 'row',
+        // marginBottom: hp('1.5%'),
+        // marginTop: hp('1.5%'),
       
     },
     containerView: {
@@ -275,4 +249,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
       },
       AxisLabel:{fontSize: hp('5%'), padding: wp('10%')},
+      flat: {backgroundColor:'#fff',flex:1,marginTop:20},
+      text:{color:'#800080', fontWeight:'bold',fontSize: hp('2%')},
+      TextView:{marginTop: hp('30%'),alignItems: 'center', justifyContent: 'center'},
 })

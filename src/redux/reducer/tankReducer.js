@@ -36,7 +36,6 @@ const tankReducer = (state = initState, action) => {
                 ]
             }
         case 'UPDATE_FILLLEVEL1':
-      //    console.log('Reducer', action.payload)
             index = state.sensors.findIndex(s => s._id === action.payload.lms_id)
             return {
                 ...state,
@@ -62,10 +61,25 @@ const tankReducer = (state = initState, action) => {
                         ...state.sensors.slice(index+1),
                     ]
                 }
+
+                case 'UPDATE_MAINTENANCE':
+                    console.log('reducer',action.payload.maintenance)
+                index = state.sensors.findIndex(s => s._id === action.payload.lms_id)
+                return {
+                    ...state,
+                    sensors : [...state.sensors.slice(0,index),
+                        {
+                            ...state.sensors[index],
+                            maintenance : action.payload.maintenance
+                            
+                        },
+                        ...state.sensors.slice(index+1),
+                    ]
+                }
+
                 case 'UPPER_LOWER_THERSHOLD':
                 
                 index = state.sensors.findIndex(s => s._id === action.id)
-                console.log('Upper',index);
                     return {
                         ...state,
                         sensors : [...state.sensors.slice(0,index),
@@ -128,7 +142,6 @@ const tankReducer = (state = initState, action) => {
                             chartsLoading:true
                         }
                     case 'GET_CHARTS':
-                       // console.log('reducer',action.payload)
                         return {
                             ...state,
                             charts:action.payload,

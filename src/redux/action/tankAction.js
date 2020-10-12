@@ -15,10 +15,10 @@ export const getSensors = (id) => (dispatch,getState) => new Promise(async funct
 
     try{
         const data = await axios.get(`${url}/rs/${id}`, config)
-        //console.log('sensor data',data.data)
         dispatch({
             type: 'GET_SENSOR',
             payload: data.data
+
         })
         resolve('done');
     }
@@ -51,9 +51,12 @@ export const updateSensors = (data)=> (dispatch,getState) => {
           type : 'UPDATE_MOTORSTATUS',
           payload : data
         })
-      }
-       else {
-    //  console.log('Error');
+      }     
+       else if(data.maintenance !== undefined){
+        dispatch({
+          type : 'UPDATE_MAINTENANCE',
+          payload : data
+        })
        }
      
 }
@@ -133,4 +136,25 @@ export const getCharts = (chartType,chartRange,id) => async (dispatch,getState) 
     catch(err){
          console.log(err)
     }
+}
+
+
+
+export const motorMaintainence = (mode,id) => async (dispatch,getState) => {
+  console.log('motor data',mode,id)
+  const config = {
+    headers: {
+        'Content-type':'Application/json'
+    }
+  }
+    const body = {
+       mode:mode
+    };
+    //console.log('body',body);
+  try{
+    const data = await axios.post(`${url}/rs/maintenance/${id}`, body, config);
+  }
+  catch(err) {
+      console.log(err)
+  }
 }

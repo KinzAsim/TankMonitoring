@@ -8,6 +8,7 @@ import ThresholdScreen from '../modules/tankMonitorinSystem/settings/thresholds'
 import HomeScreen from '../modules/tankMonitorinSystem/home/HomeView';
 import logScreen from '../modules/tankMonitorinSystem/logs/logView';
 import graphScreen from '../modules/tankMonitorinSystem/charts/graphs';
+import maintainenceScreen from '../modules/tankMonitorinSystem/maintainence/maintainence';
 // import graphScreen from '../modules/tankMonitorinSystem/charts/graphs';
 // import alertScreen from '../modules/tankMonitorinSystem/alerts/recentAlerts';
 const iconSetting = require('../../assets/images/tabbar/pages.png')
@@ -24,7 +25,8 @@ export default createBottomTabNavigator(
     Home: {
       screen: HomeScreen,
       navigationOptions: {
-        title: 'Overview'
+        title: 'Overview',
+        headerLeft: null
       },
     }, 
       Logs: {
@@ -43,6 +45,12 @@ export default createBottomTabNavigator(
     screen : ThresholdScreen,
     navigationOptions: {
       title: 'Settings'
+    } 
+   },
+   Maintainence: {
+    screen: maintainenceScreen,
+    navigationOptions: {
+      title: 'Maintainence'
     }
  },
     
@@ -65,6 +73,9 @@ export default createBottomTabNavigator(
               iconSource = iconGraphs;
             break;
             case 'Threshold':
+              iconSource = iconSetting;
+            break;
+            case 'Maintainence':
               iconSource = iconSetting;
             break;
           default:

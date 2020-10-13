@@ -109,7 +109,7 @@ import {getSensors,forceMotor} from '../../../redux/action/tankAction';
                     }}
                     dropDownStyle={{                       
                         elevation:50,                          
-                        backgroundColor:'#000',
+                        backgroundColor:'#fff',
                         marginLeft:wp('10.5%'),
                         height:40,
                         borderColor:'#0F5E9C' 
@@ -166,13 +166,12 @@ import {getSensors,forceMotor} from '../../../redux/action/tankAction';
                     <Card
                     containerStyle={[styles.cardMainContainer,{backgroundColor:'#fff', marginTop:10, elevation:30,marginBottom:50}]}>
                         <Card.Title style={styles.cardTitle}>LOWER TANK FILLLEVEL</Card.Title>
-                        <View style={{justifyContent:'center', flexDirection:'row-reverse'}}>
+                    <View style={{justifyContent:'center', flexDirection:'row-reverse'}}>
                     <View style={styles.IconView}>
                         <Icon1 name="battery-low" size={40} color="#0F5E9C"/>
                     </View>
-                        <Text              
-                        style={styles.text}>{tank[Index].fillLevel1}</Text>  
-                        </View>                
+                        <Text style={styles.text}>{tank[Index].fillLevel1}</Text>  
+                    </View>                
                     </Card>
                     </View>
 
@@ -183,11 +182,17 @@ import {getSensors,forceMotor} from '../../../redux/action/tankAction';
                     containerStyle={[styles.cardMainContainer1,{backgroundColor:'#fff',borderColor:'#fff', elevation:120,marginHorizontal:wp('25%'), borderRadius:28}]}>
                         <Card.Title style={styles.cardTitle1}>MOTOR STATUS</Card.Title>
                     <View style={{justifyContent:'center', marginTop:30, alignItems:'center',}}>
-                    <TouchableOpacity onPress={() => this.controlMotor()}>
+
+                    {tank[Index].maintenance === true ? ( 
+                        <TouchableOpacity onPress={() => this.controlMotor()}>
                         <View style={styles.IconView1}>
                         <Icon4 name="poweroff" size={30} color="#0F5E9C"/>
                         </View>
-                        </TouchableOpacity>
+                        </TouchableOpacity>):(
+                        <View style={styles.IconView1}>
+                        <Icon4 name="poweroff" size={30} color="#0F5E9C"/>
+                        </View>                          
+                        )}
                     {tank[Index].motor === 1 ?
                      (
                       <Text style={styles.text1}>ON</Text>) :

@@ -13,10 +13,11 @@ import maintainenceScreen from '../modules/tankMonitorinSystem/maintainence/main
 // import alertScreen from '../modules/tankMonitorinSystem/alerts/recentAlerts';
 const iconSetting = require('../../assets/images/tabbar/pages.png')
 const iconHome = require('../../assets/images/tabbar/home.png');
-const iconAlert = require('../../assets/images/tabbar/alert.png');
+const iconMantain = require('../../assets/images/tabbar/alert.png');
 const iconGraphs = require('../../assets/images/tabbar/chart.png');
 const iconComponents = require('../../assets/images/tabbar/components.png');
 const iconCalendar = require('../../assets/images/tabbar/calendar.png');
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 // const hederBackground = require('../../../assets/images/topBarBg.png');
 
 export default createBottomTabNavigator(
@@ -51,7 +52,8 @@ export default createBottomTabNavigator(
     screen: maintainenceScreen,
     navigationOptions: {
       title: 'Maintainence'
-    }
+    },
+    
  },
     
   },
@@ -76,8 +78,8 @@ export default createBottomTabNavigator(
               iconSource = iconSetting;
             break;
             case 'Maintainence':
-              iconSource = iconSetting;
-            break;
+                iconSource = iconMantain;
+              break;
           default:
             iconSource = iconComponents;
         }
@@ -102,8 +104,8 @@ export default createBottomTabNavigator(
       },
       labelStyle: {
         color: '#800080',
-        shadowColor:'#800080',
-        elevation:60
+        shadowColor:'#000',
+        fontSize:15
       },
     },
   },

@@ -12,7 +12,7 @@ render(){
    const {navigationProps} = this.props;
     return(
         <TouchableOpacity style={styles.iconView} onPress={()=>navigationProps.navigate('profile')}>
-            <Icon style={styles.image} name="user" size = {20} color="#900"/> 
+            <Icon style={styles.image} name="user" size = {20} color="#800080"/> 
             {/* <Image
                 
                 color="#000"

@@ -43,7 +43,7 @@ const App_Stack = createStackNavigator({
          title: 'Tank Monitoring System',
     
         headerTitleStyle: {
-         color:'#2389DA'
+         color:'#800080'
         },
          headerShown:true,
          

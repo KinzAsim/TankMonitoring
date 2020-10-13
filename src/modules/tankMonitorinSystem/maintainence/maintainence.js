@@ -8,6 +8,7 @@ import {motorMaintainence,getSensors} from '../../../redux/action/tankAction';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {colors} from '../../../style';
 
+
 class maintainenceScreen extends React.Component {
     constructor(props){
         super(props);
@@ -18,7 +19,8 @@ class maintainenceScreen extends React.Component {
             selectedModule:0,
             selectedModuleValue: 'Fill Level module',
             loading: true,
-            Index:2
+            Index:2,
+            pressStatus :false
             
         }
     }
@@ -36,7 +38,7 @@ class maintainenceScreen extends React.Component {
             this.setState({
             selectedModule:item.label,
             selectedModuleValue:item.value,
-            Index:i
+            Index:i,
             })
     }
 
@@ -46,6 +48,7 @@ class maintainenceScreen extends React.Component {
         const i = tank.findIndex(x => x.name === selectedModuleValue);
 
         if(tank[i].maintenance === false){
+            console.log('motor',tank[i].motor === 1)
             this.props.motorMaintainence(1,tank[i]._id);
         }
         else if(tank[i].maintenance === true){
@@ -53,19 +56,26 @@ class maintainenceScreen extends React.Component {
         }
     }
 
+    changeColor = () => {
+        const{tank}= this.props; 
+        const{selectedModuleValue} = this.state;
+        const i = tank.findIndex(x => x.name === selectedModuleValue);
+       
+    }
     
     render(){
-        const{Modules,selectedModuleValue,Index}= this.state;
+        const{Modules,selectedModuleValue,Index,color1}= this.state;
         const{tank,user}=this.props;
     //    console.log('tank',tank)
 
         return(
             <View style={styles.container}>
-                <View style={{borderRadius:8,width: wp('45%'),marginLeft:wp('3.5%')}}>
+                 <View style={styles.card}>
+                 <View style={{borderRadius:8, marginHorizontal:wp('25%'), marginTop:hp('2%')}}>
             <DropDownPicker
                       items={Modules}              
                       defaultValue={selectedModuleValue}
-                      containerStyle={{height: 40, width: wp('45%')}}
+                      containerStyle={{height: 40, width: wp('85%')}}
                       style={{backgroundColor: colors.secondary}}
                       itemStyle={{
                           justifyContent: 'flex-start',
@@ -83,22 +93,22 @@ class maintainenceScreen extends React.Component {
                     onChangeItem={item => this.handleModuleChange(item)}
                   />
             
-          </View >
+            </View>
            
             <TouchableOpacity onPress={() => this.changeMotor()}> 
             <View style={styles.IconView1}>    
-                <Icon name="poweroff" size={60} color="#0F5E9C"/>           
+                <Icon name="poweroff" size={60} color={tank[Index].maintenance === true  ? "red" : "green"}/>           
             </View>
             </TouchableOpacity>
-            <View >
+            <View style={{alignItems:'center'}}>
             {tank[Index].maintenance === false ?
                      (
                       <Text style={styles.text1}>Enabled</Text>) :
                          (
                       <Text style={styles.text1}>Disabled</Text>
                         )}  
-            </View>
-            
+                    </View>
+                </View>
             </View>
            
         )
@@ -122,9 +132,6 @@ const styles = StyleSheet.create({
     container: {
        flex:1,
        backgroundColor:'#fff',   
-       alignItems:'center',
-       marginHorizontal:hp('10%'),
-       marginVertical:wp('10%'),
        paddingTop:20
     },
     IconView1: {
@@ -132,15 +139,36 @@ const styles = StyleSheet.create({
         height:150,
         borderRadius:75,
         elevation:30,
+        marginTop:100,
         backgroundColor:'#fff',
         alignItems:'center',
         justifyContent:'center',
-        marginHorizontal:hp('15%'),
-        marginVertical:wp('15%')
+       
     },
     text1: {       
         fontSize:40,
         fontWeight:'bold',
         color:'#800080'
+    },
+    text2: {       
+        fontSize:40,
+        fontWeight:'bold',
+        color:'red'
+    },
+    card:{  
+        flex:0.96,
+        paddingTop:20,
+        marginTop:hp('3%'),
+        marginLeft:wp('4%'),
+        marginRight:wp('4%'),
+        backgroundColor:'#fff',
+        alignItems:'center',
+        elevation:10
+    },
+    text1: {       
+        fontSize:50,
+        fontWeight:'bold',
+        color:'#800080',
+        marginTop:20,
     },
 })

@@ -7,7 +7,7 @@ import {connect} from 'react-redux';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {ThresholdUpper,ThresholdLower} from '../../../redux/action/thresholdAction';
-
+import {colors} from '../../../style';
 
 class ThresholdScreen extends React.Component{
     constructor(props){
@@ -114,12 +114,12 @@ class ThresholdScreen extends React.Component{
 
         return(
             <View style={styles.container}>
-                 <View style={{borderRadius:8,width: wp('35%'), marginHorizontal:wp('25%'), marginTop:hp('2%')}}>
+                 <View style={{borderRadius:8, marginHorizontal:wp('15%'), marginTop:hp('2%')}}>
             <DropDownPicker
                       items={Modules}              
                       defaultValue={selectedModuleValue}
-                      containerStyle={{height:hp('4%'), width: wp('45%')}}
-                      style={{backgroundColor:'#fff'}}
+                      containerStyle={{height:hp('4%'), width: wp('65%')}}
+                      style={{backgroundColor: colors.secondary}}
                       itemStyle={{
                           //justifyContent: 'flex-start',
                           //backgroundColor: '#fff',
@@ -130,17 +130,17 @@ class ThresholdScreen extends React.Component{
                       labelStyle={{
                         fontSize: 14,
                         textAlign: 'left',
-                        color: '#000'
+                        color: '#fff'
                     }}
                     arrowStyle={{marginRight: 10,backgroundColor:"#fff",borderRadius:10}}
                     onChangeItem={item => this.handleChange(item)}
                   />
                  </View >
                 <View style={styles.card}>
-                    <View style={{marginTop:hp('6%'), marginHorizontal:wp('6%')}}>
+                    <View style={{marginTop:hp('6%'), marginHorizontal:wp('3%')}}>
                     <Text style={styles.text}>UPPER_TANK THRESHOLD</Text>
                     <View style={{flexDirection:'row'}}>
-                    <Card containerStyle={[styles.cardMainContainer,{backgroundColor:'#fff', width:150
+                    <Card containerStyle={[styles.cardMainContainer,{backgroundColor:'#fff', width:170
                     }]}>
                 <Card.Title>Upper_Level</Card.Title>
                     <View style={{flexDirection:'row-reverse',marginHorizontal:hp('1%')}}>
@@ -165,7 +165,7 @@ class ThresholdScreen extends React.Component{
                     </View>                            
                 </Card>
 
-                    <Card containerStyle={[styles.cardMainContainer,{backgroundColor:'#fff', width:150
+                    <Card containerStyle={[styles.cardMainContainer,{backgroundColor:'#fff', width:170
                     }]}>
                         <Card.Title>Lower_level</Card.Title>
                         <View style={{flexDirection:'row-reverse',marginHorizontal:hp('1%')}}>
@@ -195,8 +195,8 @@ class ThresholdScreen extends React.Component{
                     
                     <View style={{marginTop:50}}>
                     <Text style={styles.text}>LOWER_TANK THRESHOLD</Text>
-                    <View style={{flexDirection:'row',marginHorizontal:wp('6%')}}>
-                    <Card containerStyle={[styles.cardMainContainer,{backgroundColor:'#fff', width:150
+                    <View style={{flexDirection:'row',marginHorizontal:wp('3%')}}>
+                    <Card containerStyle={[styles.cardMainContainer,{backgroundColor:'#fff', width:170
                     }]}>
                 <Card.Title>Upper_Level</Card.Title>
                     <View style={{flexDirection:'row-reverse',marginHorizontal:hp('1%')}}>
@@ -222,7 +222,7 @@ class ThresholdScreen extends React.Component{
                     </View>                    
                 </Card>
 
-                    <Card containerStyle={[styles.cardMainContainer,{backgroundColor:'#fff', width:150
+                    <Card containerStyle={[styles.cardMainContainer,{backgroundColor:'#fff', width:170
                     }]}>
                         <Card.Title>Lower_level</Card.Title>
                         <View style={{flexDirection:'row-reverse',marginHorizontal:hp('1%')}}>

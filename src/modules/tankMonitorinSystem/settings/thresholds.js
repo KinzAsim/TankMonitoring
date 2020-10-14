@@ -126,7 +126,7 @@ class ThresholdScreen extends React.Component{
                           borderRadius: 5,
                           marginBottom: 5
                       }}
-                      dropDownStyle={{backgroundColor: '#fff',elevation:50}}
+                      dropDownStyle={{backgroundColor: colors.secondary,elevation:50}}
                       labelStyle={{
                         fontSize: 14,
                         textAlign: 'left',

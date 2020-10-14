@@ -26,7 +26,7 @@ const Auth_Stack = createStackNavigator({
 );
 const App_Stack = createStackNavigator({
     pusher : {
-        screen: NotificationPusher
+        screen: NotificationPusher,
     },
     home: {
         screen: TankTabNavigator        

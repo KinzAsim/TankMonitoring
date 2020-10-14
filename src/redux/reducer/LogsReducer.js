@@ -4,7 +4,7 @@ const initState = {
 };
 
 const LogReducer = (state = initState , action) => {
-  //  console.log('LogReducer',action.payload)
+   // console.log('LogReducer',action.payload.data)
 
     switch(action.type)
     {

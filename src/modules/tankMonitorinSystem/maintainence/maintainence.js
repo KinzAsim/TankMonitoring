@@ -94,7 +94,9 @@ class maintainenceScreen extends React.Component {
                   />
             
             </View>
-           
+
+           <Text style={{marginTop:30,fontSize:20,fontWeight:"bold"}}>Maintenance Mode</Text>
+
             <TouchableOpacity onPress={() => this.changeMotor()}> 
             <View style={styles.IconView1}>    
                 <Icon name="poweroff" size={60} color={tank[Index].maintenance === true  ? "red" : "green"}/>           

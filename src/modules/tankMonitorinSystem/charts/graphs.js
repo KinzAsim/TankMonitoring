@@ -193,7 +193,7 @@ class graphScreen extends React.Component{
                      </VictoryGroup>
                  </VictoryChart>
                  ) : selectedTypeValue === 'fillLevel' || selectedTypeValue === 'fillLevel1' ? (
-                    <VictoryChart theme={VictoryTheme.material} domain={{y: [0, highest]}}  width={width} height={hp('50%')}>
+                    <VictoryChart theme={VictoryTheme.animate} domain={{y: [0, highest]}}  width={width} height={hp('50%')}>
                     <VictoryGroup  offset={20}
                   colorScale={"blue"}
                   animate={{

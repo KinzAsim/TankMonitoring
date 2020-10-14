@@ -4,11 +4,11 @@ import { Card } from 'react-native-elements';
 import { View} from 'react-native-ui-lib';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
-import Icon3 from 'react-native-vector-icons/MaterialIcons';
 import  Svg, {Circle}  from 'react-native-svg';
 import Icon4 from 'react-native-vector-icons/AntDesign';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {connect} from 'react-redux';
+import {colors} from '../../../style';
 import {getSensors,forceMotor} from '../../../redux/action/tankAction';
 //import AnimatedWave from "react-native-animated-wave";
 
@@ -40,7 +40,7 @@ import {getSensors,forceMotor} from '../../../redux/action/tankAction';
     async componentDidMount () {
         const {user} = this.props;    
         const done = await this.props.getSensors(user.id);
-        if(done=='done'){
+        if(done =='done'){
             console.log('done');
         }
     }   
@@ -70,6 +70,7 @@ import {getSensors,forceMotor} from '../../../redux/action/tankAction';
     render(){
         const {Modules,selectedModuleValue,Index} = this.state;
         const {user,state,tank,sensorLoading} = this.props; 
+       // console.log('Home', tank)
 
         if(tank[Index] === undefined){
             return(
@@ -82,7 +83,7 @@ import {getSensors,forceMotor} from '../../../redux/action/tankAction';
         else{
             return(
             <SafeAreaView style={styles.container}>  
-              <StatusBar  backgroundColor="#2389DA"/>
+              <StatusBar  style={{backgroundColor: colors.secondary}}/>
 
               {sensorLoading ? (
                     <View style={{flex:1, alignItems:'center',justifyContent:'center',backgroundColor:'black'}}>
@@ -95,30 +96,32 @@ import {getSensors,forceMotor} from '../../../redux/action/tankAction';
                     <DropDownPicker
                     items={Modules}
                     defaultValue={selectedModuleValue}
-                    style={{borderColor:'#0F5E9C',backgroundColor:'#fff'}}
+                    style={{backgroundColor:colors.secondary}}
                     containerStyle={{
                         height:40, 
                         width:wp('86.3%'),                                              
                         paddingLeft:50,
-                        marginTop:10,
+                        marginTop:5,
                         marginBottom:20}}
                     itemStyle={{
                         justifyContent:'flex-start',
                         borderRadius:5,                       
-                        marginBottom:5,                                             
+                        marginBottom:5,                                       
                     }}
                     dropDownStyle={{                       
                         elevation:50,                          
                         backgroundColor:'#fff',
                         marginLeft:wp('10.5%'),
                         height:40,
-                        borderColor:'#0F5E9C' 
+                        backgroundColor:colors.secondary,
+                        borderColor:'#fff' 
                     }}
                     labelStyle={{
                         fontSize:14,
                         textAlign:'left',
-                        color:'#2389DA'                                       
+                        color:'#fff'                                       
                     }}
+                    arrowStyle={{marginRight: 10,backgroundColor:colors.whiteOne,borderRadius:10}}
                     //mapping
                     onChangeItem={item => this.handleChange(item)}
                     ></DropDownPicker>
@@ -148,7 +151,7 @@ import {getSensors,forceMotor} from '../../../redux/action/tankAction';
                     </Svg> */}
 {/* //#5CDB95, #05386B, #5D001E, #9A1750, E3AFBC*/}
 {/* // <View style={{flexDirection:'column-reverse'}}> */}
-                    <View style={{backgroundColor:'#800080', marginHorizontal:20, elevation:50, marginTop:hp('2%'), marginBottom:50,borderRadius:28}}>
+                    <View style={{ backgroundColor:colors.secondary, marginHorizontal:20, elevation:50, marginTop:hp('3%'), marginBottom:50,borderRadius:28}}>
                     <Card
                     containerStyle={[styles.cardMainContainer,{backgroundColor:'#fff', marginTop:hp('4%'), elevation:30, borderRadius: 800
                     }]}
@@ -179,7 +182,7 @@ import {getSensors,forceMotor} from '../../../redux/action/tankAction';
             {/* </View> */}
         
                     <Card
-                    containerStyle={[styles.cardMainContainer1,{backgroundColor:'#fff',borderColor:'#fff', elevation:120,marginHorizontal:wp('25%'), borderRadius:28}]}>
+                    containerStyle={[styles.cardMainContainer1,{backgroundColor:'#fff',borderColor:'#fff', elevation:150,marginHorizontal:wp('25%'), borderRadius:28}]}>
                         <Card.Title style={styles.cardTitle1}>MOTOR STATUS</Card.Title>
                     <View style={{justifyContent:'center', marginTop:30, alignItems:'center',}}>
 
@@ -253,7 +256,7 @@ const styles = StyleSheet.create({
         height:hp('33%'),
         borderWidth: 1,
         shadowRadius:60, 
-         
+        elevation:100         
     },
     cardTitle: {
         fontSize: 20,

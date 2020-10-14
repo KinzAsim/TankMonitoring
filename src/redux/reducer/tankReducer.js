@@ -63,7 +63,7 @@ const tankReducer = (state = initState, action) => {
                 }
 
                 case 'UPDATE_MAINTENANCE':
-                    console.log('reducer',action.payload.maintenance)
+                 //   console.log('reducer',action.payload.maintenance)
                 index = state.sensors.findIndex(s => s._id === action.payload.lms_id)
                 return {
                     ...state,

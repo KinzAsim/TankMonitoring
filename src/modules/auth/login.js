@@ -1,6 +1,6 @@
 
 import React from 'react';
-import {StyleSheet,View,TextInput,Text, TouchableOpacity, KeyboardAvoidingView} from 'react-native';
+import {StyleSheet,View,TextInput,Text, TouchableOpacity, KeyboardAvoidingView,StatusBar} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import {colors} from '../../style';
@@ -43,9 +43,10 @@ class LoginScreen extends React.Component{
     return(      
         <KeyboardAvoidingView 
                           style={styles.conatiner}>   
-           
+         <StatusBar size={15} color='#800080'/>
                 <View style={styles.iconView}>               
                          <Icon style={styles.icon} name="user" size={30} color="#2389DA"/>
+                         
                 </View>
 
          
@@ -95,7 +96,7 @@ class LoginScreen extends React.Component{
                     flex: 1,
                     justifyContent:'center',
                     alignItems:'center',
-                    backgroundColor:'#000',                    
+                    backgroundColor:'#800080',                    
                    },
                   
                   input: {
@@ -128,14 +129,14 @@ class LoginScreen extends React.Component{
                   loginbtn :{
                     justifyContent:'center',
                     alignItems:'center',
-                    backgroundColor:'transparent',
+                    backgroundColor:'#fff',
                     width: wp('70%'),
                     height: hp('6%'),
                     borderRadius: 30,
                     marginBottom: 10,
                     marginTop: 50,
                     borderWidth: 1,
-                    borderColor: '#192f6a'
+                    borderColor: '#fff'
                   },
 
                   icon:{

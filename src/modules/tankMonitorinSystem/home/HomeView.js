@@ -4,6 +4,7 @@ import { Card } from 'react-native-elements';
 import { View} from 'react-native-ui-lib';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon2 from 'react-native-vector-icons/MaterialIcons';
 import  Svg, {Circle}  from 'react-native-svg';
 import Icon4 from 'react-native-vector-icons/AntDesign';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -160,7 +161,7 @@ import {getSensors,forceMotor} from '../../../redux/action/tankAction';
                     <View style={{justifyContent:'center',flexDirection:'row-reverse'}}>
                     <View style={styles.IconView}
                     >
-                    <Icon1 name="battery-high" size={40} color="#0F5E9C"/>
+                    <Icon2 name="graphic-eq" size={40} color="#0F5E9C"/>
                     </View>
                        <Text style={styles.text}>{tank[Index].fillLevel}</Text>
                     </View>                                    
@@ -171,7 +172,7 @@ import {getSensors,forceMotor} from '../../../redux/action/tankAction';
                         <Card.Title style={styles.cardTitle}>LOWER TANK FILLLEVEL</Card.Title>
                     <View style={{justifyContent:'center', flexDirection:'row-reverse'}}>
                     <View style={styles.IconView}>
-                        <Icon1 name="battery-low" size={40} color="#0F5E9C"/>
+                        <Icon2 name="graphic-eq" size={40} color="#0F5E9C"/>
                     </View>
                         <Text style={styles.text}>{tank[Index].fillLevel1}</Text>  
                     </View>                

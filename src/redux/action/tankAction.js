@@ -158,3 +158,6 @@ export const motorMaintainence = (mode,id) => async (dispatch,getState) => {
       console.log(err)
   }
 }
+
+
+

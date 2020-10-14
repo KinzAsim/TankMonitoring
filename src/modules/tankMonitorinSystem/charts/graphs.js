@@ -98,10 +98,10 @@ class graphScreen extends React.Component{
             width = wp('150%')
         }
         else if(selectedRangeValue === 'month'){
-            width = wp('430%')
+            width = wp('480%')
         }
         else if(selectedRangeValue === 'year'){
-            width = wp('200%')
+            width = wp('220%')
         }
         return(
             <View style={styles.container}bounces={true}>

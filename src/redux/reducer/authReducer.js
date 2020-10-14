@@ -1,13 +1,4 @@
-import { 
-    USER_LOADING,
-    USER_LOADED,
-    LOGIN_SUCCESS,
-    LOGIN_FAIL,
-    LOGOUT_SUCCESS,
-    REGISTER_FAIL,
-    AUTH_ERROR,
-    LOADING_ERROR,
-} from '../action/types';
+
 import AsyncStorage from '@react-native-community/async-storage';
 
 const initState = {
@@ -46,12 +37,14 @@ const authReducer = (state = initState, action) => {
     //    case 'LOGIN_FAIL' :
     //     case 'LOGOUT_SUCCESS' :
     //     //case REGISTER_FAIL :
-    //         return {
-    //             ...state,
-    //             token : null,
-    //             isAuthenticated : false,
-    //             isLoading : false,
-    //         }
+            case 'SIGN_OUT':
+                console.log('here')
+            return {
+                ...state,
+                token : null,
+                isAuthenticated : false,
+                isLoading : false,
+            }
     //     case 'LOADING_ERROR':
     //         return{
     //             ...state,

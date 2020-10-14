@@ -2,15 +2,32 @@ import React from 'react';
 import {View,StyleSheet,Image,Text} from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import {Card} from 'react-native-elements';
- import Icon from 'react-native-vector-icons/Ionicons';
- import{TouchableOpacity} from 'react-native-gesture-handler';
+import{TouchableOpacity} from 'react-native-gesture-handler';
+import{getSensors} from '../../redux/action/tankAction';
+import {loadUser} from '../../redux/action/authAction';
+import{connect} from 'react-redux';
+import {signOut} from '../../redux/action/authAction';
+import AsyncStorage from '@react-native-community/async-storage';
 
 class ProfileScreen extends React.Component{
     constructor(props){
         super(props);
+        this.state={
+            Index:2
+        }
     }        
+    
+    _signOut = async () => {
+        AsyncStorage.removeItem('userToken')
+        this.props.signOut();
+        this.props.navigation.navigate('auth')
+     };
 
 render(){ 
+    const{Index}=this.state;
+    const{user}=this.props;
+    //console.log('user',user)
+
     return(
         <View style={styles.container}>
         
@@ -23,15 +40,15 @@ render(){
             </View>
             <Card containerStyle={styles.card}>
                 <View style={{alignItems:'center'}}> 
-                    <Text style={styles.headingText}>Rubitrons</Text>
-                    <Text style={styles.text}>rubitrons@demo.com</Text>
+                    <Text style={styles.headingText}>{user.name}</Text>
+                    <Text style={styles.text}>{user.email}</Text>
                 </View>
                 <View style={{alignItems:'center',marginTop:hp('10%')}}>
                     <TouchableOpacity style={styles.btn} onPress={()=>console.log('change password')}>
                         <Text style={{color:'#fff',fontWeight:'bold'}}>Change Password</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={[styles.btn,{backgroundColor:'transparent',marginTop:hp('2.2%')}]}
-                     onPress={()=>console.log('Sign out')}
+                     onPress={()=>this._signOut()}
                     >
                         <Text style={{color:'#800080',fontWeight:'bold'}}>Sign Out</Text>
                     </TouchableOpacity>
@@ -45,7 +62,13 @@ render(){
     );
 }
 }
-export default ProfileScreen;
+
+    const mapStateToProps = (state) => ({
+        user:state.auth.user,
+        isAuthenticated:state.auth.isAuthenticated
+    })
+
+export default connect(mapStateToProps,{getSensors,signOut})(ProfileScreen);
 
 const styles = StyleSheet.create({
     container: {

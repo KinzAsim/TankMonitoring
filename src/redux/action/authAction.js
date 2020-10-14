@@ -61,4 +61,11 @@ export const loadUser = (token) => {
     }
 }
 
+
+export const signOut = () => (dispatch,getState) =>{
+   
+    dispatch({
+        type:'SIGN_OUT'
+    })
+  }
   
